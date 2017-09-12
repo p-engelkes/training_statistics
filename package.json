@@ -1,0 +1,28 @@
+{
+  "name": "training_statistics",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "custom-react-scripts": "0.2.0",
+    "firebase": "^4.3.1",
+    "history": "^4.7.2",
+    "lodash": "^4.17.4",
+    "material-ui": "^1.0.0-beta.8",
+    "material-ui-icons": "^1.0.0-beta.5",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-redux-firebase": "^2.0.0-beta.8",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
