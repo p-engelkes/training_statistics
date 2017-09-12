@@ -2,6 +2,9 @@ import React from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "material-ui";
 import MenuIcon from 'material-ui-icons/Menu';
 import {Link} from "react-router-dom";
+import {firebaseConnect, isEmpty} from "react-redux-firebase";
+import {connect} from "react-redux";
+
 const styles = {
     flex: {
         flex: 1
@@ -12,27 +15,48 @@ const styles = {
     }
 };
 
-function TopNavigation(props) {
+let TopNavigation = props => {
     const {classes} = props;
 
+    function handleLogout() {
+        props.firebase.logout();
+        console.log(props.auth);
+    }
+
+    console.log(props);
     return (
         <AppBar position="static">
             <Toolbar>
                 <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-                    <MenuIcon />
+                    <MenuIcon/>
                 </IconButton>
                 <Typography type="title" color="inherit" className={classes.flex}>
                     Trainings Statistiken
                 </Typography>
-                <Button color="contrast" to={"register"} component={Link}>
-                    Registrieren
-                </Button>
-                <Button color="contrast" to={"/login"} component={Link}>
-                    Login
-                </Button>
+                {
+                    isEmpty(props.auth) ?
+                        <div>
+                            <Button color="contrast" to={"register"} component={Link}>
+                                Registrieren
+                            </Button>
+                            <Button color="contrast" to={"/login"} component={Link}>
+                                Login
+                            </Button>
+                        </div> :
+                        <Button color="contrast" onClick={handleLogout}>
+                            Logout
+                        </Button>
+                }
             </Toolbar>
         </AppBar>
     )
-}
+};
 
-export default withStyles(styles)(TopNavigation)
+TopNavigation = firebaseConnect()(TopNavigation);
+TopNavigation = connect(
+    ({firebase: {auth}}) => ({
+        auth
+    })
+)(withStyles(styles)(TopNavigation));
+
+export default TopNavigation;
