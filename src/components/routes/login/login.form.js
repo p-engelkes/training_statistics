@@ -1,21 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
-import { required } from '../../utils/forms'
-import renderTextField from "../form/material.text.field";
+import {matchesValue, required} from '../../../utils/forms'
+import renderTextField from "../../form/material.text.field";
 
 
 const LoginFormUI = props => {
     const {handleSubmit, invalid, submitting} = props;
-    console.log(props);
     return (
         <form onSubmit={handleSubmit}>
             <div>
                 <Field
-                    name="userName"
+                    name="email"
                     component={renderTextField}
-                    label="Benutzername"
-                    type="text"
+                    label="E-Mail"
+                    type="email"
                     validate={[required]}
                 />
             </div>

@@ -4,7 +4,8 @@ import TopNavigation from "./components/top_navigation/app.bar";
 import {Route} from "react-router-dom";
 import {history} from "./store";
 import {Home} from "./components/home";
-import {Login} from "./components/login/login.container";
+import {Login} from "./components/routes/login/login.container";
+import {Register} from "./components/routes/register/register.container";
 
 export const ConnectedRouting = () => {
     return (
@@ -38,5 +39,10 @@ const routes = [
         path: '/login',
         exact: false,
         component: Login
+    },
+    {
+        path: '/register',
+        exact: false,
+        component: Register
     }
 ];
