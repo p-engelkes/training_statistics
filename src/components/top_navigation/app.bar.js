@@ -24,7 +24,12 @@ function TopNavigation(props) {
                 <Typography type="title" color="inherit" className={classes.flex}>
                     Trainings Statistiken
                 </Typography>
-                <Button color="contrast">Login</Button>
+                <Button color="contrast" to={"register"} component={Link}>
+                    Registrieren
+                </Button>
+                <Button color="contrast" to={"/login"} component={Link}>
+                    Login
+                </Button>
             </Toolbar>
         </AppBar>
     )
