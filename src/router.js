@@ -2,9 +2,9 @@ import React from 'react';
 import {ConnectedRouter} from 'react-router-redux';
 import TopNavigation from "./components/top_navigation/app.bar";
 import {Route} from "react-router-dom";
-import Login from "./components/login/login.form";
 import {history} from "./store";
 import {Home} from "./components/home";
+import {Login} from "./components/login/login.container";
 
 export const ConnectedRouting = () => {
     return (
