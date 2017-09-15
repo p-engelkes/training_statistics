@@ -6,6 +6,7 @@ import {history} from "./store";
 import {Home} from "./components/home";
 import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";
+import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/router";
 
 export const ConnectedRouting = () => {
     return (
@@ -14,7 +15,17 @@ export const ConnectedRouting = () => {
                 <TopNavigation />
                 <div>
                     {
-                        routes.map((route, index) => (
+                        authenticatedRoutes.map((route, index) => (
+                            <Route
+                                key={index}
+                                exact={route.exact}
+                                path={route.path}
+                                component={userIsAuthenticated(route.component)}
+                            />
+                        ))
+                    }
+                    {
+                        unauthenticatedRoutes.map((route, index) => (
                             <Route
                                 key={index}
                                 exact={route.exact}
@@ -29,12 +40,15 @@ export const ConnectedRouting = () => {
     )
 };
 
-const routes = [
+const authenticatedRoutes = [
     {
         path: '/',
         exact: true,
         component: Home
-    },
+    }
+];
+
+const unauthenticatedRoutes = [
     {
         path: '/login',
         exact: false,

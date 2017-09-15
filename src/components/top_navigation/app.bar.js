@@ -20,10 +20,8 @@ let TopNavigation = props => {
 
     function handleLogout() {
         props.firebase.logout();
-        console.log(props.auth);
     }
 
-    console.log(props);
     return (
         <AppBar position="static">
             <Toolbar>
