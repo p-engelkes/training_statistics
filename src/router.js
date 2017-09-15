@@ -30,7 +30,7 @@ export const ConnectedRouting = () => {
                                 key={index}
                                 exact={route.exact}
                                 path={route.path}
-                                component={route.component}
+                                component={userIsNotAuthenticated(route.component)}
                             />
                         ))
                     }
