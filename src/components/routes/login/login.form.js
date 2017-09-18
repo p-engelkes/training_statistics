@@ -1,9 +1,23 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
-import {matchesValue, required} from '../../../utils/forms'
+import {validEmail} from '../../../utils/forms'
 import renderTextField from "../../form/material.text.field";
 
+const validate = values => {
+    const errors = {};
+    if (!values.email) {
+        errors.email = 'Eine E-Mail Adresse muss eingegeben werden'
+    } else if (!validEmail(values.email)) {
+        errors.email = 'Eine gülte E-Mail Adresse muss eingegeben werden'
+    }
+
+    if (!values.password) {
+        errors.password = 'Ein Passwort muss eingegeben werden'
+    }
+
+    return errors;
+};
 
 const LoginFormUI = props => {
     const {handleSubmit, invalid, submitting} = props;
@@ -15,7 +29,6 @@ const LoginFormUI = props => {
                     component={renderTextField}
                     label="E-Mail"
                     type="email"
-                    validate={[required]}
                 />
             </div>
             <div>
@@ -24,7 +37,6 @@ const LoginFormUI = props => {
                     component={renderTextField}
                     label="Passwort"
                     type="password"
-                    validate={[required]}
                 />
             </div>
             <div>
@@ -41,5 +53,6 @@ const LoginFormUI = props => {
 };
 
 export const LoginForm = reduxForm({
-    form: 'LoginForm'
+    form: 'LoginForm',
+    validate
 })(LoginFormUI);
