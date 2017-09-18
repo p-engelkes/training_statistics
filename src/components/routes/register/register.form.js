@@ -1,7 +1,9 @@
 import React from 'react';
-import {Field, reduxForm, formValueSelector} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import renderTextField from "../../form/material.text.field";
 import {Button} from "material-ui";
+import FormField from "../../form/form.field";
+import FormButton from "../../form/form.button";
 
 const validate = values => {
     const errors = {};
@@ -29,46 +31,48 @@ let RegisterForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+            <FormField>
                 <Field
                     name="email"
                     component={renderTextField}
                     label="E-Mail"
                     type="email"
+                    style={{width: '100%'}}
                 />
-            </div>
-            <div>
+            </FormField>
+            <FormField>
                 <Field
                     name="password"
                     component={renderTextField}
                     label="Passwort"
                     type="password"
+                    style={{width: '100%'}}
                 />
-            </div>
-            <div>
+            </FormField>
+            <FormField>
                 <Field
                     name="confirmPassword"
                     component={renderTextField}
                     label="Passwort bestätigen"
                     type="password"
+                    style={{width: '100%'}}
                 />
-            </div>
-            <div>
+            </FormField>
+            <FormButton>
                 <Button
                     raised
                     type="submit"
                     disabled={invalid || submitting}
-                    color="primary"
-                >
+                    color="primary">
                     Registrieren
                 </Button>
-            </div>
+            </FormButton>
         </form>
     )
 };
 
 RegisterForm = reduxForm({
-   form: 'RegisterForm',
+    form: 'RegisterForm',
     validate
 })(RegisterForm);
 

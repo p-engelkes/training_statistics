@@ -13,7 +13,7 @@ export const ConnectedRouting = () => {
         <ConnectedRouter history={history}>
             <div>
                 <TopNavigation />
-                <div>
+                <div className="container">
                     {
                         authenticatedRoutes.map((route, index) => (
                             <Route

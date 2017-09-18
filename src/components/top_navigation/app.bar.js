@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "material-ui";
+import {AppBar, Button, IconButton, Menu, Toolbar, Typography, withStyles} from "material-ui";
 import MenuIcon from 'material-ui-icons/Menu';
 import {Link} from "react-router-dom";
 import {firebaseConnect, isEmpty} from "react-redux-firebase";
