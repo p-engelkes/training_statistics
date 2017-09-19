@@ -3,8 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
 import {validEmail} from '../../../utils/forms'
 import renderTextField from "../../form/material.text.field";
-import FormField from "../../form/form.field";
-import FormButton from "../../form/form.button";
+import {FormTemplate} from "../../form/form.template";
 
 const validate = values => {
     const errors = {};
@@ -25,32 +24,31 @@ const LoginFormUI = props => {
     const {handleSubmit, invalid, submitting} = props;
     return (
         <form onSubmit={handleSubmit}>
-            <FormField>
+            <FormTemplate title="Login">
                 <Field
                     name="email"
                     component={renderTextField}
                     label="E-Mail"
                     type="email"
                     style={{width: '100%'}}
+                    key="field"
                 />
-            </FormField>
-            <FormField>
                 <Field
                     name="password"
                     component={renderTextField}
                     label="Passwort"
                     type="password"
                     style={{width: '100%'}}
+                    key="field"
                 />
-            </FormField>
-            <FormButton>
                 <Button
                     type="submit"
                     disabled={invalid || submitting}
                     raised={true}
                     color={'primary'}
+                    key="button"
                 >Login</Button>
-            </FormButton>
+            </FormTemplate>
         </form>
     )
 };

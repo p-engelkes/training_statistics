@@ -2,8 +2,7 @@ import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import renderTextField from "../../form/material.text.field";
 import {Button} from "material-ui";
-import FormField from "../../form/form.field";
-import FormButton from "../../form/form.button";
+import {FormTemplate} from "../../form/form.template";
 
 const validate = values => {
     const errors = {};
@@ -31,42 +30,41 @@ let RegisterForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormField>
+            <FormTemplate title="Registrieren">
                 <Field
                     name="email"
                     component={renderTextField}
                     label="E-Mail"
                     type="email"
                     style={{width: '100%'}}
+                    key="field"
                 />
-            </FormField>
-            <FormField>
                 <Field
                     name="password"
                     component={renderTextField}
                     label="Passwort"
                     type="password"
                     style={{width: '100%'}}
+                    key="field"
                 />
-            </FormField>
-            <FormField>
                 <Field
                     name="confirmPassword"
                     component={renderTextField}
                     label="Passwort bestätigen"
                     type="password"
                     style={{width: '100%'}}
+                    key="field"
                 />
-            </FormField>
-            <FormButton>
                 <Button
                     raised
                     type="submit"
                     disabled={invalid || submitting}
-                    color="primary">
+                    color="primary"
+                    key="button"
+                >
                     Registrieren
                 </Button>
-            </FormButton>
+            </FormTemplate>
         </form>
     )
 };

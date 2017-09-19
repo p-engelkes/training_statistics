@@ -1,4 +1,3 @@
-import React from 'react';
 import {connectedRouterRedirect} from "redux-auth-wrapper/history4/redirect";
 import {isEmpty, isLoaded} from 'react-redux-firebase';
 
