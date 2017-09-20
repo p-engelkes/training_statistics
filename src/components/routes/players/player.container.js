@@ -1,50 +1,101 @@
 import React, {Component} from 'react';
 import {PlayerForm} from "./player.form";
-import {firebaseConnect, isLoaded} from "react-redux-firebase";
+import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {reset} from 'redux-form';
-import {Paper} from "material-ui";
-import {Typography} from "../../../../node_modules/material-ui/index";
+import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
+import {IconButton} from "material-ui";
+import DeleteIcon from 'material-ui-icons/Delete';
+import {CircularProgress} from "../../../../node_modules/material-ui/Progress/index";
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+    selectedPlayer: {
+        background: theme.palette.grey[100]
+    }
+});
 
 class PlayerPresentation extends Component {
-    handleAdd = newPlayer => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedPlayer: null
+        }
+    }
+
+    handleAdd = player => {
         if (this.props.auth) {
-            this.props.firebase.pushWithMeta('/players', newPlayer);
+            this.props.firebase.pushWithMeta('/players', player);
             this.props.dispatch(reset('PlayerForm'))
         }
     };
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        console.log(nextProps);
-    }
+    handleUpdate = player => {
+        if (this.props.auth) {
+            this.props.firebase.updateWithMeta(`/players/${player.key}`, player)
+        }
+    };
+
+    handleDelete = key => {
+        if (this.props.auth) {
+            this.props.firebase.remove(`/players/${key}`).catch(err => {
+                console.log(err)
+            });
+            if (this.state.selectedPlayer) {
+                this.setState({selectedPlayer: null})
+            }
+        }
+    };
+
+    handleListItemClicked = player => {
+        this.setState({selectedPlayer: player})
+    };
 
     render() {
         const {players} = this.props;
+        const {classes} = this.props.classes;
 
         return <div>
             {
-                isLoaded(this.props.players) &&
-                <div>
-                    {
-                        Object.keys(players).map((key) => (
-                            <Paper elevation={4} key={key} style={{paddingBottom: 5}}>
-                                <Typography type="headline" component="h3">
-                                    {`${players[key].firstName} ${players[key].lastName}`}
-                                </Typography>
-                            </Paper>
-                        ))
-                    }
-                </div>
+                isLoaded(this.props.players) && !isEmpty(this.props.players) ?
+                    <div className="col-lg-offset-4 col-lg-4 col-xs-12">
+                        <List>
+                            {
+                                Object.keys(players).map((key) => (
+                                    <ListItem key={key} dense button
+                                              onClick={() => this.handleListItemClicked(players[key])}
+                                              style={{background: 'red'}}
+                                    >
+                                        <ListItemText primary={`${players[key].firstName} ${players[key].lastName}`}/>
+                                        <ListItemSecondaryAction>
+                                            <IconButton aria-label="Delete" onClick={() => this.handleDelete(key)}>
+                                                <DeleteIcon/>
+                                            </IconButton>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                ))
+                            }
+                        </List>
+                    </div> :
+                    <div className="row center-xs">
+                        <div className="col-sx-2">
+                            <CircularProgress size={50}/>
+                        </div>
+                    </div>
             }
-            <PlayerForm onSubmit={this.handleAdd}/>
+            {
+                this.state.selectedPlayer &&
+                    <PlayerForm onSubmit={this.handleUpdate}
+                            player={this.state.selectedPlayer}/>
+            }
         </div>
     }
 }
 
 const wrappedPlayer = firebaseConnect(['/players'])(PlayerPresentation);
-export const Player = connect(
+export const Player = withStyles(styles)(connect(
     ({firebase: {auth, data: {players}}}) => ({
         auth,
         players
     })
-)(wrappedPlayer);
+)(wrappedPlayer));
