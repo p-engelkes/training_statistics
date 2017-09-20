@@ -41,9 +41,14 @@ let TopNavigation = props => {
                                 Login
                             </Button>
                         </div> :
-                        <Button color="contrast" onClick={handleLogout}>
-                            Logout
-                        </Button>
+                        <div>
+                            <Button color="contrast" to="/players" component={Link}>
+                                Spieler
+                            </Button>
+                            <Button color="contrast" onClick={handleLogout}>
+                                Logout
+                            </Button>
+                        </div>
                 }
             </Toolbar>
         </AppBar>
