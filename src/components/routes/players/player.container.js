@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {PlayerForm} from "./player.form";
 import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
-import {reset} from 'redux-form';
+import {reset, change} from 'redux-form';
 import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
 import {IconButton} from "material-ui";
 import DeleteIcon from 'material-ui-icons/Delete';
 import {CircularProgress} from "../../../../node_modules/material-ui/Progress/index";
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 const styles = theme => ({
     selectedPlayer: {
@@ -48,7 +48,9 @@ class PlayerPresentation extends Component {
     };
 
     handleListItemClicked = player => {
-        this.setState({selectedPlayer: player})
+        this.setState({selectedPlayer: player});
+        this.props.dispatch(change('PlayerForm', 'firstName', player.firstName));
+        this.props.dispatch(change('PlayerForm', 'lastName', player.lastName));
     };
 
     render() {
@@ -64,7 +66,6 @@ class PlayerPresentation extends Component {
                                 Object.keys(players).map((key) => (
                                     <ListItem key={key} dense button
                                               onClick={() => this.handleListItemClicked(players[key])}
-                                              style={{background: 'red'}}
                                     >
                                         <ListItemText primary={`${players[key].firstName} ${players[key].lastName}`}/>
                                         <ListItemSecondaryAction>
@@ -85,8 +86,11 @@ class PlayerPresentation extends Component {
             }
             {
                 this.state.selectedPlayer &&
-                    <PlayerForm onSubmit={this.handleUpdate}
-                            player={this.state.selectedPlayer}/>
+                <PlayerForm onSubmit={this.handleUpdate}
+                            player={this.state.selectedPlayer}
+                            title=""
+                            buttonLabel="aktualisieren"
+                />
             }
         </div>
     }

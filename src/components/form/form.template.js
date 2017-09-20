@@ -24,11 +24,14 @@ export const FormTemplate = ({title, children}) => {
     }
 
     return <div>
-        <div className="row center-xs">
-            <div className="col-sx-2">
-                <h1>{title}</h1>
+        {
+            title &&
+            <div className="row center-xs">
+                <div className="col-sx-2">
+                    <h1>{title}</h1>
+                </div>
             </div>
-        </div>
+        }
         {renderFormFields()}
         <FormButton>
             {getButton()}

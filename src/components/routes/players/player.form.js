@@ -5,19 +5,11 @@ import renderTextField from "../../form/material.text.field";
 import {Button} from "material-ui";
 
 class PlayerFormUI  extends React.Component{
-    componentDidUpdate() {
-        const {player} = this.props;
-        if (player) {
-            this.props.change('firstName', player.firstName);
-            this.props.change('lastName', player.lastName);
-        }
-    }
-
     render() {
-        const {invalid, submitting} = this.props;
+        const {invalid, submitting, title, buttonLabel} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <FormTemplate title="aktualisieren">
+            <FormTemplate title={title}>
                 <Field
                     name="firstName"
                     component={renderTextField}
@@ -41,11 +33,7 @@ class PlayerFormUI  extends React.Component{
                     color="primary"
                     key="button"
                 >
-                    {
-                        this.props.player ?
-                            "aktualisieren":
-                            "hinzufügen"
-                    }
+                    {buttonLabel}
                 </Button>
             </FormTemplate>
         </form>
