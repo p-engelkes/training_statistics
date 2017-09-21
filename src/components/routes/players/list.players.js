@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import {PlayerForm} from "./player.form";
 import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
-import {reset, change} from 'redux-form';
+import {change} from 'redux-form';
 import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
 import {IconButton} from "material-ui";
 import DeleteIcon from 'material-ui-icons/Delete';
 import {CircularProgress} from "../../../../node_modules/material-ui/Progress/index";
 import {withStyles} from 'material-ui/styles';
+import {Heading} from "../../heading";
 
 const styles = theme => ({
-    selectedPlayer: {
-        background: theme.palette.grey[100]
+    selected: {
+        background: theme.palette.secondary[300]
     }
 });
 
@@ -19,13 +20,13 @@ class PlayerPresentation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedPlayer: null
+            selected: null
         }
     }
 
     handleUpdate = player => {
         if (this.props.auth) {
-            this.props.firebase.updateWithMeta(`/players/${player.key}`, player)
+            this.props.firebase.updateWithMeta(`/players/${this.state.selected.key}`, player)
         }
     };
 
@@ -34,23 +35,36 @@ class PlayerPresentation extends Component {
             this.props.firebase.remove(`/players/${key}`).catch(err => {
                 console.log(err)
             });
-            if (this.state.selectedPlayer) {
-                this.setState({selectedPlayer: null})
+            if (this.state.selected) {
+                this.setState({selected: null})
             }
         }
     };
 
-    handleListItemClicked = player => {
-        this.setState({selectedPlayer: player});
-        this.props.dispatch(change('PlayerForm', 'firstName', player.firstName));
-        this.props.dispatch(change('PlayerForm', 'lastName', player.lastName));
+    handleListItemClicked = selected => {
+        this.setState({selected});
+        this.props.dispatch(change('PlayerForm', 'firstName', selected.player.firstName));
+        this.props.dispatch(change('PlayerForm', 'lastName', selected.player.lastName));
     };
+
+    getSelectedClass(key) {
+        const {selected} = this.state;
+        const {classes} = this.props;
+
+        if (selected) {
+            if (key === selected.key) {
+                return classes.selected
+            }
+        }
+
+        return ''
+    }
 
     render() {
         const {players} = this.props;
-        const {classes} = this.props.classes;
 
         return <div>
+            <Heading title="Spielerübersicht" />
             {
                 isLoaded(this.props.players) && !isEmpty(this.props.players) ?
                     <div className="col-lg-offset-4 col-lg-4 col-xs-12">
@@ -58,7 +72,11 @@ class PlayerPresentation extends Component {
                             {
                                 Object.keys(players).map((key) => (
                                     <ListItem key={key} dense button
-                                              onClick={() => this.handleListItemClicked(players[key])}
+                                              onClick={() => this.handleListItemClicked({
+                                                  player: players[key],
+                                                  key
+                                              })}
+                                              className={this.getSelectedClass(key)}
                                     >
                                         <ListItemText primary={`${players[key].firstName} ${players[key].lastName}`}/>
                                         <ListItemSecondaryAction>
@@ -78,7 +96,7 @@ class PlayerPresentation extends Component {
                     </div>
             }
             {
-                this.state.selectedPlayer &&
+                this.state.selected &&
                 <PlayerForm onSubmit={this.handleUpdate}
                             player={this.state.selectedPlayer}
                             title=""
@@ -90,9 +108,9 @@ class PlayerPresentation extends Component {
 }
 
 const wrappedPlayer = firebaseConnect(['/players'])(PlayerPresentation);
-export const Player = withStyles(styles)(connect(
+export const Player = (connect(
     ({firebase: {auth, data: {players}}}) => ({
         auth,
         players
     })
-)(wrappedPlayer));
+)(withStyles(styles)(wrappedPlayer)));

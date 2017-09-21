@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FormField from "./form.field";
 import FormButton from "./form.button";
+import {Heading} from "../heading";
 
 export const FormTemplate = ({title, children}) => {
     function renderFormFields() {
@@ -26,11 +27,7 @@ export const FormTemplate = ({title, children}) => {
     return <div>
         {
             title &&
-            <div className="row center-xs">
-                <div className="col-sx-2">
-                    <h1>{title}</h1>
-                </div>
-            </div>
+            <Heading title={title}/>
         }
         {renderFormFields()}
         <FormButton>

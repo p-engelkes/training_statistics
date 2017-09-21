@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import renderTextField from "../../form/material.text.field";
 import {Button} from "material-ui";
 
-class PlayerFormUI  extends React.Component{
+class PlayerFormPresentation  extends React.Component{
     render() {
         const {invalid, submitting, title, buttonLabel} = this.props;
 
@@ -42,4 +42,4 @@ class PlayerFormUI  extends React.Component{
 
 export const PlayerForm = reduxForm({
     form: 'PlayerForm'
-})(PlayerFormUI);
+})(PlayerFormPresentation);
