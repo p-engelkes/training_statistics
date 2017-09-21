@@ -1,9 +1,11 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import {Button} from "material-ui";
+import {Button, Checkbox} from "material-ui";
 import {validEmail} from '../../../utils/forms'
 import renderTextField from "../../form/material.text.field";
-import {FormTemplate} from "../../form/form.template";
+import FormField from "../../form/form.field";
+import FormButton from "../../form/form.button";
+import {FormControlLabel} from "../../../../node_modules/material-ui/Form/index";
 
 const validate = values => {
     const errors = {};
@@ -24,7 +26,7 @@ const LoginFormUI = props => {
     const {handleSubmit, invalid, submitting} = props;
     return (
         <form onSubmit={handleSubmit}>
-            <FormTemplate title="Login">
+            <FormField>
                 <Field
                     name="email"
                     component={renderTextField}
@@ -33,6 +35,8 @@ const LoginFormUI = props => {
                     style={{width: '100%'}}
                     key="field"
                 />
+            </FormField>
+            <FormField>
                 <Field
                     name="password"
                     component={renderTextField}
@@ -41,6 +45,8 @@ const LoginFormUI = props => {
                     style={{width: '100%'}}
                     key="field"
                 />
+            </FormField>
+            <FormButton>
                 <Button
                     type="submit"
                     disabled={invalid || submitting}
@@ -48,7 +54,7 @@ const LoginFormUI = props => {
                     color={'primary'}
                     key="button"
                 >Login</Button>
-            </FormTemplate>
+            </FormButton>
         </form>
     )
 };
