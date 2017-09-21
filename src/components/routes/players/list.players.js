@@ -23,13 +23,6 @@ class PlayerPresentation extends Component {
         }
     }
 
-    handleAdd = player => {
-        if (this.props.auth) {
-            this.props.firebase.pushWithMeta('/players', player);
-            this.props.dispatch(reset('PlayerForm'))
-        }
-    };
-
     handleUpdate = player => {
         if (this.props.auth) {
             this.props.firebase.updateWithMeta(`/players/${player.key}`, player)

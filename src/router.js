@@ -7,7 +7,8 @@ import {Home} from "./components/home";
 import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";
 import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authentication";
-import {Player} from "./components/routes/players/player.container";
+import {Player} from "./components/routes/players/list.players";
+import {AddPlayer} from "./components/routes/players/add.players";
 
 export const ConnectedRouting = () => {
     return (
@@ -49,8 +50,13 @@ const authenticatedRoutes = [
     },
     {
         path: '/players',
-        exact: false,
+        exact: true,
         component: Player
+    },
+    {
+        path: '/players/add',
+        exact: false,
+        component: AddPlayer
     }
 ];
 
