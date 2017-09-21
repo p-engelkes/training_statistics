@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {PlayerForm} from "./player.form";
+import {AddPlayerForm} from "./add/add.player.form";
 import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change} from 'redux-form';
@@ -43,8 +43,8 @@ class PlayerPresentation extends Component {
 
     handleListItemClicked = selected => {
         this.setState({selected});
-        this.props.dispatch(change('PlayerForm', 'firstName', selected.player.firstName));
-        this.props.dispatch(change('PlayerForm', 'lastName', selected.player.lastName));
+        this.props.dispatch(change('AddPlayerForm', 'firstName', selected.player.firstName));
+        this.props.dispatch(change('AddPlayerForm', 'lastName', selected.player.lastName));
     };
 
     getSelectedClass(key) {
@@ -97,10 +97,10 @@ class PlayerPresentation extends Component {
             }
             {
                 this.state.selected &&
-                <PlayerForm onSubmit={this.handleUpdate}
-                            player={this.state.selectedPlayer}
-                            title=""
-                            buttonLabel="aktualisieren"
+                <AddPlayerForm onSubmit={this.handleUpdate}
+                               player={this.state.selectedPlayer}
+                               title=""
+                               buttonLabel="aktualisieren"
                 />
             }
         </div>

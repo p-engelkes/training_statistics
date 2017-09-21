@@ -8,7 +8,7 @@ import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";
 import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authentication";
 import {Player} from "./components/routes/players/list.players";
-import {AddPlayer} from "./components/routes/players/add.players";
+import {AddPlayer} from "./components/routes/players/add/add.players.container";
 
 export const ConnectedRouting = () => {
     return (

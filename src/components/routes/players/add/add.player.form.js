@@ -1,17 +1,19 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import renderTextField from "../../form/material.text.field";
-import {Button, Checkbox} from "material-ui";
-import FormField from "../../form/form.field";
-import FormButton from "../../form/form.button";
-import {FormControlLabel} from "../../../../node_modules/material-ui/Form/index";
-import renderCheckBox from "../../form/material.checkbox.field";
+import renderTextField from "../../../form/material.text.field";
+import {Button} from "material-ui";
+import FormField from "../../../form/form.field";
+import FormButton from "../../../form/form.button";
+import renderCheckBox from "../../../form/material.checkbox.field";
+import {Heading} from "../../../heading";
+import {withRouter} from "react-router-dom";
 
-class PlayerFormPresentation extends React.Component {
+class AddPlayerFormPresentation extends React.Component {
     render() {
-        const {invalid, submitting, title, buttonLabel} = this.props;
+        const {invalid, submitting, buttonLabel} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
+            <Heading title="Spieler hinzufügen"/>
             <FormField>
                 <Field
                     name="firstName"
@@ -34,7 +36,7 @@ class PlayerFormPresentation extends React.Component {
             </FormField>
             <FormButton>
                 <Field
-                    name="aditionalPlayer"
+                    name="additionalPlayer"
                     component={renderCheckBox}
                     label="weiteren Spieler hinzufügen"
                 />
@@ -53,6 +55,6 @@ class PlayerFormPresentation extends React.Component {
     }
 }
 
-export const PlayerForm = reduxForm({
-    form: 'PlayerForm'
-})(PlayerFormPresentation);
+export const AddPlayerForm = reduxForm({
+    form: 'AddPlayerForm'
+})(withRouter(AddPlayerFormPresentation));
