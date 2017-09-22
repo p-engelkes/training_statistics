@@ -9,6 +9,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import {CircularProgress} from "../../../../node_modules/material-ui/Progress/index";
 import {withStyles} from 'material-ui/styles';
 import {Heading} from "../../heading";
+import {EditPlayerForm} from "./edit/edit.player.form";
 
 const styles = theme => ({
     selected: {
@@ -17,12 +18,9 @@ const styles = theme => ({
 });
 
 class PlayerPresentation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: null
-        }
-    }
+    state = {
+        selected: null
+    };
 
     handleUpdate = player => {
         if (this.props.auth) {
@@ -43,8 +41,8 @@ class PlayerPresentation extends Component {
 
     handleListItemClicked = selected => {
         this.setState({selected});
-        this.props.dispatch(change('AddPlayerForm', 'firstName', selected.player.firstName));
-        this.props.dispatch(change('AddPlayerForm', 'lastName', selected.player.lastName));
+        this.props.dispatch(change('EditPlayerForm', 'firstName', selected.player.firstName));
+        this.props.dispatch(change('EditPlayerForm', 'lastName', selected.player.lastName));
     };
 
     getSelectedClass(key) {
@@ -64,7 +62,7 @@ class PlayerPresentation extends Component {
         const {players} = this.props;
 
         return <div>
-            <Heading title="Spielerübersicht" />
+            <Heading title="Spielerübersicht"/>
             {
                 isLoaded(this.props.players) && !isEmpty(this.props.players) ?
                     <div className="col-lg-offset-4 col-lg-4 col-xs-12">
@@ -97,10 +95,10 @@ class PlayerPresentation extends Component {
             }
             {
                 this.state.selected &&
-                <AddPlayerForm onSubmit={this.handleUpdate}
-                               player={this.state.selectedPlayer}
-                               title=""
-                               buttonLabel="aktualisieren"
+                <EditPlayerForm onSubmit={this.handleUpdate}
+                                player={this.state.selected}
+                                title=""
+                                buttonLabel="aktualisieren"
                 />
             }
         </div>

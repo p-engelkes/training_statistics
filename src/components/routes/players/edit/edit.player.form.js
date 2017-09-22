@@ -1,20 +1,16 @@
 import React from 'react';
+import FormField from "../../../form/form.field";
 import {Field, reduxForm} from "redux-form";
 import renderTextField from "../../../form/material.text.field";
-import {Button} from "material-ui";
-import FormField from "../../../form/form.field";
 import FormButton from "../../../form/form.button";
-import renderCheckBox from "../../../form/material.checkbox.field";
-import {Heading} from "../../../heading";
-import {withRouter} from "react-router-dom";
+import {Button} from "material-ui";
 import {validatePlayerForm} from "../player.form.validation";
 
-class AddPlayerFormPresentation extends React.Component {
+class EditPlayerFormPresentation extends React.Component {
     render() {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <Heading title="Spieler hinzufügen"/>
             <FormField>
                 <Field
                     name="firstName"
@@ -22,7 +18,6 @@ class AddPlayerFormPresentation extends React.Component {
                     label="Vorname"
                     type="text"
                     style={{width: '100%'}}
-                    key="field"
                 />
             </FormField>
             <FormField>
@@ -32,31 +27,23 @@ class AddPlayerFormPresentation extends React.Component {
                     label="Nachname"
                     type="text"
                     style={{width: '100%'}}
-                    key="field"
                 />
             </FormField>
             <FormButton>
-                <Field
-                    name="additionalPlayer"
-                    component={renderCheckBox}
-                    label="weiteren Spieler hinzufügen"
-                />
                 <Button
                     type="submit"
                     disabled={invalid || submitting}
                     raised={true}
                     color="primary"
-                    key="button"
                 >
-                    hinzufügen
+                    aktualisieren
                 </Button>
             </FormButton>
-
         </form>
     }
 }
 
-export const AddPlayerForm = reduxForm({
-    form: 'AddPlayerForm',
+export const EditPlayerForm = reduxForm({
+    form: 'EditPlayerForm',
     validatePlayerForm
-})(withRouter(AddPlayerFormPresentation));
+})(EditPlayerFormPresentation);

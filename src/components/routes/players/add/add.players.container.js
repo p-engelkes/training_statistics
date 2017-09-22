@@ -33,7 +33,6 @@ class AddPlayerPresentation extends Component {
         return <AddPlayerForm
             onSubmit={this.handleAdd}
             title="Spieler hinzufügen"
-            buttonLabel="hinzufügen"
         >
         </AddPlayerForm>
     }
