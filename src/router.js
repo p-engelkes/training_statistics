@@ -43,6 +43,12 @@ export const ConnectedRouting = () => {
     )
 };
 
+export const LOGIN_ROUTE = "/login";
+export const REGISTER_ROUTE = "/register";
+export const PLAYERS_ROUTE = "/players";
+export const ADD_PLAYER_ROUTE = `/${PLAYERS_ROUTE}/add`;
+export const ADD_TRAINING_ROUTE = "/trainings/add";
+
 const authenticatedRoutes = [
     {
         path: '/',
@@ -50,17 +56,17 @@ const authenticatedRoutes = [
         component: Home
     },
     {
-        path: '/players',
+        path: PLAYERS_ROUTE,
         exact: true,
         component: Player
     },
     {
-        path: '/players/add',
+        path: ADD_PLAYER_ROUTE,
         exact: false,
         component: AddPlayer
     },
     {
-        path: '/trainings/add',
+        path: ADD_TRAINING_ROUTE,
         exact: false,
         component: AddTraining
     }
@@ -68,12 +74,12 @@ const authenticatedRoutes = [
 
 const unauthenticatedRoutes = [
     {
-        path: '/login',
+        path: LOGIN_ROUTE,
         exact: false,
         component: Login
     },
     {
-        path: '/register',
+        path: REGISTER_ROUTE,
         exact: false,
         component: Register
     },

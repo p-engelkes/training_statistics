@@ -11,6 +11,7 @@ import {Heading} from "../../heading";
 import {EditPlayerForm} from "./edit/edit.player.form";
 import {LoadingSpinner} from "../../loading.spinner";
 import {EDIT_PLAYER_FORM, FIRST_NAME, LAST_NAME} from "../../constants/forms/player.form.constants";
+import {PLAYER_LOCATION} from "../../constants/api.constants";
 
 const styles = theme => ({
     selected: {
@@ -25,13 +26,13 @@ class PlayerPresentation extends Component {
 
     handleUpdate = player => {
         if (this.props.auth) {
-            this.props.firebase.updateWithMeta(`/players/${this.state.selected.key}`, player)
+            this.props.firebase.updateWithMeta(`/${PLAYER_LOCATION}/${this.state.selected.key}`, player)
         }
     };
 
     handleDelete = key => {
         if (this.props.auth) {
-            this.props.firebase.remove(`/players/${key}`).catch(err => {
+            this.props.firebase.remove(`/${PLAYER_LOCATION}/${key}`).catch(err => {
                 console.log(err)
             });
             if (this.state.selected) {
@@ -102,7 +103,7 @@ class PlayerPresentation extends Component {
     }
 }
 
-const wrappedPlayer = firebaseConnect(['/players'])(PlayerPresentation);
+const wrappedPlayer = firebaseConnect([`/${PLAYER_LOCATION}`])(PlayerPresentation);
 export const Player = (connect(
     ({firebase: {auth, data: {players}}}) => ({
         auth,

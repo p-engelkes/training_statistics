@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {firebaseConnect, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {MenuItem} from "../../../node_modules/material-ui/Menu/index";
+import {ADD_PLAYER_ROUTE, LOGIN_ROUTE, PLAYERS_ROUTE, REGISTER_ROUTE} from "../../router";
 
 const styles = {
     flex: {
@@ -52,10 +53,10 @@ class TopNavigation extends React.Component {
                     {
                         isEmpty(this.props.auth) ?
                             <div>
-                                <Button color="contrast" to={"register"} component={Link}>
+                                <Button color="contrast" to={REGISTER_ROUTE} component={Link}>
                                     Registrieren
                                 </Button>
-                                <Button color="contrast" to={"/login"} component={Link}>
+                                <Button color="contrast" to={LOGIN_ROUTE} component={Link}>
                                     Login
                                 </Button>
                             </div> :
@@ -74,10 +75,10 @@ class TopNavigation extends React.Component {
                                     open={this.state.open}
                                     onRequestClose={this.handleRequestClose}
                                 >
-                                    <MenuItem onClick={this.handleRequestClose} to={"/players"} component={Link}>
+                                    <MenuItem onClick={this.handleRequestClose} to={PLAYERS_ROUTE} component={Link}>
                                         Liste
                                     </MenuItem>
-                                    <MenuItem onClick={this.handleRequestClose} to="/players/add" component={Link}>
+                                    <MenuItem onClick={this.handleRequestClose} to={ADD_PLAYER_ROUTE} component={Link}>
                                         Hinzufügen
                                     </MenuItem>
                                 </Menu>

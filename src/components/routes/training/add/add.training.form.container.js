@@ -4,6 +4,7 @@ import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change, reset} from 'redux-form';
 import {ADD_TRAINING_FORM, DATE} from "../../../constants/forms/training.form.constants";
+import {PLAYER_LOCATION, TRAINING_LOCATION} from "../../../constants/api.constants";
 
 class AddTrainingPresentation extends Component {
     componentDidMount() {
@@ -28,7 +29,7 @@ class AddTrainingPresentation extends Component {
     handleAdd = training => {
         if (this.props.auth) {
             this.props.firebase.pushWithMeta(
-                "/trainings",
+                `/${TRAINING_LOCATION}`,
                 training,
                 this.resetForm
             )
@@ -44,7 +45,7 @@ class AddTrainingPresentation extends Component {
     }
 }
 
-const wrappedPlayer = firebaseConnect(['/players'])(AddTrainingPresentation);
+const wrappedPlayer = firebaseConnect([`/${PLAYER_LOCATION}`])(AddTrainingPresentation);
 export const AddTraining = (connect(
     ({firebase: {auth, data: {players}}}) => ({
         auth,
