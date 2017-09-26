@@ -5,12 +5,29 @@ import {
     // orderedToJS, // needed for ordered list
     // populatedDataToJS // needed for populated list
 } from 'react-redux-firebase'
+import {Button, Grid} from "material-ui";
 
 class HomePresentation extends Component {
     render() {
-        return (
-            <div>Home Component</div>
-        )
+        return <Grid container spacing={0}>
+            <Grid container justify="center">
+                <Grid item xs={12} lg={8}>
+                    <div style={{background: 'red'}}>Test</div>
+                </Grid>
+            </Grid>
+            <Grid container justify="flex-end" style={{paddingTop: 8}}>
+                <Grid item>
+                    <Button
+                        type="submit"
+                        raised={true}
+                        color="primary"
+                        key="button"
+                    >
+                        hinzufügen
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
     }
 }
 

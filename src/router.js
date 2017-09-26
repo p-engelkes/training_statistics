@@ -10,13 +10,29 @@ import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authenticatio
 import {Player} from "./components/routes/players/list.players";
 import {AddPlayer} from "./components/routes/players/add/add.players.container";
 import {AddTraining} from "./components/routes/training/add/add.training.form.container";
+import {Grid} from "material-ui";
+import {withStyles} from 'material-ui/styles';
 
-export const ConnectedRouting = () => {
+const styles = theme => ({
+    container: {
+        paddingTop: 10,
+        [theme.breakpoints.up('md')]: {
+            width: '70%',
+            margin: '0 auto'
+        },
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            margin: '0 auto'
+        }
+    }
+});
+
+const ConnectedRouting = (props) => {
     return (
         <ConnectedRouter history={history}>
             <div>
                 <TopNavigation />
-                <div className="container">
+                <Grid container className={props.classes.container} spacing={24}>
                     {
                         authenticatedRoutes.map((route, index) => (
                             <Route
@@ -37,11 +53,13 @@ export const ConnectedRouting = () => {
                             />
                         ))
                     }
-                </div>
+                </Grid>
             </div>
         </ConnectedRouter>
     )
 };
+
+export default withStyles(styles)(ConnectedRouting);
 
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
