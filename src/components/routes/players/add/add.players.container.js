@@ -4,6 +4,7 @@ import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {reset} from 'redux-form';
+import {ADD_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 
 class AddPlayerPresentation extends Component {
     handleAdd = player => {
@@ -22,7 +23,7 @@ class AddPlayerPresentation extends Component {
     };
 
     resetForm = () => {
-        this.props.dispatch(reset('AddPlayerForm'))
+        this.props.dispatch(reset(ADD_PLAYER_FORM))
     };
 
     moveToPlayerList = () => {

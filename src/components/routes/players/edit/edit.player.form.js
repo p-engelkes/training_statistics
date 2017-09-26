@@ -1,34 +1,17 @@
 import React from 'react';
-import FormField from "../../../form/form.field";
-import {Field, reduxForm} from "redux-form";
-import renderTextField from "../../../form/material.text.field";
+import {reduxForm} from "redux-form";
 import FormButton from "../../../form/form.button";
 import {Button} from "material-ui";
 import {validatePlayerForm} from "../player.form.validation";
+import {PlayerFormFields} from "../player.form.fields";
+import {EDIT_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 
 class EditPlayerFormPresentation extends React.Component {
     render() {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <FormField>
-                <Field
-                    name="firstName"
-                    component={renderTextField}
-                    label="Vorname"
-                    type="text"
-                    style={{width: '100%'}}
-                />
-            </FormField>
-            <FormField>
-                <Field
-                    name="lastName"
-                    component={renderTextField}
-                    label="Nachname"
-                    type="text"
-                    style={{width: '100%'}}
-                />
-            </FormField>
+           <PlayerFormFields />
             <FormButton>
                 <Button
                     type="submit"
@@ -44,6 +27,6 @@ class EditPlayerFormPresentation extends React.Component {
 }
 
 export const EditPlayerForm = reduxForm({
-    form: 'EditPlayerForm',
+    form: EDIT_PLAYER_FORM,
     validatePlayerForm
 })(EditPlayerFormPresentation);

@@ -10,6 +10,7 @@ import {withStyles} from 'material-ui/styles';
 import {Heading} from "../../heading";
 import {EditPlayerForm} from "./edit/edit.player.form";
 import {LoadingSpinner} from "../../loading.spinner";
+import {EDIT_PLAYER_FORM, FIRST_NAME, LAST_NAME} from "../../constants/forms/player.form.constants";
 
 const styles = theme => ({
     selected: {
@@ -41,8 +42,8 @@ class PlayerPresentation extends Component {
 
     handleListItemClicked = selected => {
         this.setState({selected});
-        this.props.dispatch(change('EditPlayerForm', 'firstName', selected.player.firstName));
-        this.props.dispatch(change('EditPlayerForm', 'lastName', selected.player.lastName));
+        this.props.dispatch(change(EDIT_PLAYER_FORM, FIRST_NAME, selected.player.firstName));
+        this.props.dispatch(change(EDIT_PLAYER_FORM, LAST_NAME, selected.player.lastName));
     };
 
     getSelectedClass(key) {

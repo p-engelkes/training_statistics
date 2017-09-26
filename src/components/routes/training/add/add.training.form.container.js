@@ -3,6 +3,7 @@ import {AddTrainingForm} from "./add.training.form";
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change, reset} from 'redux-form';
+import {ADD_TRAINING_FORM, DATE} from "../../../constants/forms/training.form.constants";
 
 class AddTrainingPresentation extends Component {
     componentDidMount() {
@@ -21,7 +22,7 @@ class AddTrainingPresentation extends Component {
 
         today = yyyy + '-' + mm + '-' + dd;
 
-        this.props.dispatch(change('AddTrainingForm', 'date', today))
+        this.props.dispatch(change(ADD_TRAINING_FORM, DATE, today))
     }
 
     handleAdd = training => {
@@ -35,7 +36,7 @@ class AddTrainingPresentation extends Component {
     };
 
     resetForm = () => {
-        this.props.dispatch(reset('AddTrainingForm'))
+        this.props.dispatch(reset(ADD_TRAINING_FORM))
     };
 
     render() {
