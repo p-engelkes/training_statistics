@@ -9,6 +9,7 @@ import {Register} from "./components/routes/register/register.container";
 import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authentication";
 import {Player} from "./components/routes/players/list.players";
 import {AddPlayer} from "./components/routes/players/add/add.players.container";
+import {AddTraining} from "./components/routes/training/add/add.training.form.container";
 
 export const ConnectedRouting = () => {
     return (
@@ -57,6 +58,11 @@ const authenticatedRoutes = [
         path: '/players/add',
         exact: false,
         component: AddPlayer
+    },
+    {
+        path: '/trainings/add',
+        exact: false,
+        component: AddTraining
     }
 ];
 

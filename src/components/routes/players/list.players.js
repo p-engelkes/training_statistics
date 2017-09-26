@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {AddPlayerForm} from "./add/add.player.form";
 import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change} from 'redux-form';
@@ -10,6 +9,7 @@ import {CircularProgress} from "../../../../node_modules/material-ui/Progress/in
 import {withStyles} from 'material-ui/styles';
 import {Heading} from "../../heading";
 import {EditPlayerForm} from "./edit/edit.player.form";
+import {LoadingSpinner} from "../../loading.spinner";
 
 const styles = theme => ({
     selected: {
@@ -87,11 +87,7 @@ class PlayerPresentation extends Component {
                             }
                         </List>
                     </div> :
-                    <div className="row center-xs">
-                        <div className="col-sx-2">
-                            <CircularProgress size={50}/>
-                        </div>
-                    </div>
+                        <LoadingSpinner />
             }
             {
                 this.state.selected &&

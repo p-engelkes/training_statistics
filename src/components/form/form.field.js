@@ -1,8 +1,15 @@
 import React from 'react';
+import {withStyles} from 'material-ui/styles';
 
-const FormField = ({children}) => {
+const styles = theme => ({
+    padding: {
+        paddingBottom: 10
+    }
+});
+
+const FormField = ({children, classes}) => {
     return (
-        <div className="row">
+        <div className={`row ${classes.padding}`}>
             <div className="col-lg-offset-3 col-lg-6 col-xs-12">
                 {children}
             </div>
@@ -10,4 +17,4 @@ const FormField = ({children}) => {
     )
 };
 
-export default FormField;
+export default withStyles(styles)(FormField);
