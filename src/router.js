@@ -12,6 +12,7 @@ import {AddPlayer} from "./components/routes/players/add/add.players.container";
 import {AddTraining} from "./components/routes/training/add/add.training.form.container";
 import {Grid} from "material-ui";
 import {withStyles} from 'material-ui/styles';
+import {AddSeason} from "./components/routes/seasons/add/add.season.container";
 
 const styles = theme => ({
     container: {
@@ -66,6 +67,7 @@ export const REGISTER_ROUTE = "/register";
 export const PLAYERS_ROUTE = "/players";
 export const ADD_PLAYER_ROUTE = `${PLAYERS_ROUTE}/add`;
 export const ADD_TRAINING_ROUTE = "/trainings/add";
+export const ADD_SEASONS_ROUTE = "/seasons/add";
 
 const authenticatedRoutes = [
     {
@@ -87,7 +89,12 @@ const authenticatedRoutes = [
         path: ADD_TRAINING_ROUTE,
         exact: false,
         component: AddTraining
-    }
+    },
+    {
+        path: ADD_SEASONS_ROUTE,
+        exact: false,
+        component: AddSeason
+    },
 ];
 
 const unauthenticatedRoutes = [

@@ -40,7 +40,7 @@ class AddPlayerFormPresentation extends React.Component {
 export const AddPlayerForm = reduxForm({
     form: ADD_PLAYER_FORM,
     validatePlayerForm
-})(withRouter(AddPlayerFormPresentation));
+})(AddPlayerFormPresentation);
 
 AddPlayerForm.propTypes = {
     onSubmit: PropTypes.func.isRequired
