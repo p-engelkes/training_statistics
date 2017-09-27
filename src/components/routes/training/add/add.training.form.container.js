@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {change, reset} from 'redux-form';
 import {ADD_TRAINING_FORM, DATE} from "../../../constants/forms/training.form.constants";
 import {PLAYER_LOCATION, TRAINING_LOCATION} from "../../../constants/api.constants";
+import {Heading} from "../../../heading";
 
 class AddTrainingPresentation extends Component {
     componentDidMount() {
@@ -41,7 +42,10 @@ class AddTrainingPresentation extends Component {
     };
 
     render() {
-        return <AddTrainingForm onSubmit={this.handleAdd} players={this.props.players}/>
+        return [
+            <Heading key="0" title="Training hinzufügen" />,
+            <AddTrainingForm key="1" onSubmit={this.handleAdd} players={this.props.players}/>
+        ]
     }
 }
 

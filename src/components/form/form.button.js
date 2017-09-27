@@ -1,12 +1,13 @@
 import React from 'react';
+import {Grid} from "material-ui";
 
 const FormButton = ({children}) => {
     return (
-        <div className="row middle-lg" style={{marginTop: 20}}>
-            <div className="col-lg-offset-7 col-xs-offset-10">
+        <Grid container justify="flex-end">
+            <Grid item style={{paddingTop: 20}}>
                 {children}
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 };
 

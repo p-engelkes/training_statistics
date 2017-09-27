@@ -34,9 +34,9 @@ class TopNavigation extends React.Component {
         this.setState({open: false});
     };
 
-    handleLogout() {
+    handleLogout =() => {
         this.props.firebase.logout();
-    }
+    };
 
     render() {
         const {classes} = this.props;

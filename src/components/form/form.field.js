@@ -1,5 +1,6 @@
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
+import {Grid} from "material-ui";
 
 const styles = theme => ({
     padding: {
@@ -9,11 +10,11 @@ const styles = theme => ({
 
 const FormField = ({children, classes}) => {
     return (
-        <div className={`row ${classes.padding}`}>
-            <div className="col-lg-offset-3 col-lg-6 col-xs-12">
+        <Grid container justify="center">
+            <Grid item xs={12} lg={8}>
                 {children}
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 };
 

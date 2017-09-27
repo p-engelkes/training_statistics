@@ -1,5 +1,4 @@
 import React from 'react';
-import {Heading} from "../../../heading";
 import FormField from "../../../form/form.field";
 import {Field, reduxForm} from "redux-form";
 import renderDatePicker from "../../../form/material.date.picker.field";
@@ -23,7 +22,6 @@ class AddTrainingFormPresentation extends React.Component {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <Heading title="Training hinzufügen" />
             <FormField>
                 <Field
                     name={DATE}

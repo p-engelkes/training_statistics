@@ -3,7 +3,6 @@ import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
 import FormButton from "../../../form/form.button";
 import renderCheckBox from "../../../form/material.checkbox.field";
-import {Heading} from "../../../heading";
 import {withRouter} from "react-router-dom";
 import {validatePlayerForm} from "../player.form.validation";
 import {
@@ -16,7 +15,6 @@ class AddPlayerFormPresentation extends React.Component {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <Heading title="Spieler hinzufügen"/>
             <PlayerFormFields />
             <FormButton>
                 <Field

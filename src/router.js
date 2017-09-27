@@ -64,7 +64,7 @@ export default withStyles(styles)(ConnectedRouting);
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 export const PLAYERS_ROUTE = "/players";
-export const ADD_PLAYER_ROUTE = `/${PLAYERS_ROUTE}/add`;
+export const ADD_PLAYER_ROUTE = `${PLAYERS_ROUTE}/add`;
 export const ADD_TRAINING_ROUTE = "/trainings/add";
 
 const authenticatedRoutes = [

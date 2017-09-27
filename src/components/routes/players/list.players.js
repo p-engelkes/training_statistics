@@ -3,9 +3,8 @@ import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change} from 'redux-form';
 import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
-import {IconButton} from "material-ui";
+import {Grid, IconButton} from "material-ui";
 import DeleteIcon from 'material-ui-icons/Delete';
-import {CircularProgress} from "../../../../node_modules/material-ui/Progress/index";
 import {withStyles} from 'material-ui/styles';
 import {Heading} from "../../heading";
 import {EditPlayerForm} from "./edit/edit.player.form";
@@ -63,11 +62,11 @@ class PlayerPresentation extends Component {
     render() {
         const {players} = this.props;
 
-        return <div>
+        return <Grid container justify="center">
             <Heading title="Spielerübersicht"/>
             {
                 isLoaded(this.props.players) && !isEmpty(this.props.players) ?
-                    <div className="col-lg-offset-4 col-lg-4 col-xs-12">
+                    <Grid item xs={12} lg={6}>
                         <List>
                             {
                                 Object.keys(players).map((key) => (
@@ -88,7 +87,7 @@ class PlayerPresentation extends Component {
                                 ))
                             }
                         </List>
-                    </div> :
+                    </Grid> :
                         <LoadingSpinner />
             }
             {
@@ -99,7 +98,7 @@ class PlayerPresentation extends Component {
                                 buttonLabel="aktualisieren"
                 />
             }
-        </div>
+        </Grid>
     }
 }
 

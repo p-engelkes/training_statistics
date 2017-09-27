@@ -1,8 +1,9 @@
 import React from 'react';
+import {Grid} from "material-ui";
 
 export const Heading = ({title}) =>
-    <div className="row center-xs">
-        <div className="col-sx-2">
+    <Grid container justify="center">
+        <Grid item>
             <h1>{title}</h1>
-        </div>
-    </div>;
+        </Grid>
+    </Grid>;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {LoginForm} from "./login.form";
+import {Heading} from "../../heading";
 
 class LoginPresentation extends Component {
     handleLogin = loginData => {
@@ -9,9 +10,10 @@ class LoginPresentation extends Component {
     };
 
     render() {
-        return (
+        return [
+            <Heading title="Login"/>,
             <LoginForm onSubmit={this.handleLogin}/>
-        )
+        ]
     }
 }
 

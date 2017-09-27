@@ -2,6 +2,7 @@ import React from 'react';
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import RegisterForm from "./register.form";
+import {Heading} from "../../heading";
 
 
 class RegisterPresentation extends React.Component {
@@ -15,9 +16,11 @@ class RegisterPresentation extends React.Component {
     };
 
     render() {
-        return (
+        return [
+            <Heading title="Registrieren"/>,
             <RegisterForm onSubmit={this.handleRegister}/>
-        )
+        ]
+
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import renderTextField from "../../form/material.text.field";
-import {Button} from "material-ui";
+import {Button, Grid} from "material-ui";
 import FormField from "../../form/form.field";
 import FormButton from "../../form/form.button";
 import {EMAIL, PASSWORD, PASSWORD_CONFIRMATION, REGISTER_FORM} from "../../constants/forms/user.form.constants";
@@ -32,47 +32,49 @@ let RegisterForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormField>
-                <Field
-                    name={EMAIL}
-                    component={renderTextField}
-                    label="E-Mail"
-                    type="email"
-                    style={{width: '100%'}}
-                    key="field"
-                />
-            </FormField>
-            <FormField>
-                <Field
-                    name={PASSWORD}
-                    component={renderTextField}
-                    label="Passwort"
-                    type="password"
-                    style={{width: '100%'}}
-                    key="field"
-                />
-            </FormField>
-            <FormField>
-                <Field
-                    name={PASSWORD_CONFIRMATION}
-                    component={renderTextField}
-                    label="Passwort bestätigen"
-                    type="password"
-                    style={{width: '100%'}}
-                    key="field"
-                />
-            </FormField>
-            <FormButton>
-                <Button
-                    raised
-                    type="submit"
-                    disabled={invalid || submitting}
-                    color="primary"
-                    key="button"
-                >
-                    Registrieren
-                </Button>
-            </FormButton>
+            <Grid container spacing={0}>
+                <FormField>
+                    <Field
+                        name={EMAIL}
+                        component={renderTextField}
+                        label="E-Mail"
+                        type="email"
+                        style={{width: '100%'}}
+                        key="field"
+                    />
+                </FormField>
+                <FormField>
+                    <Field
+                        name={PASSWORD}
+                        component={renderTextField}
+                        label="Passwort"
+                        type="password"
+                        style={{width: '100%'}}
+                        key="field"
+                    />
+                </FormField>
+                <FormField>
+                    <Field
+                        name={PASSWORD_CONFIRMATION}
+                        component={renderTextField}
+                        label="Passwort bestätigen"
+                        type="password"
+                        style={{width: '100%'}}
+                        key="field"
+                    />
+                </FormField>
+                <FormButton>
+                    <Button
+                        raised
+                        type="submit"
+                        disabled={invalid || submitting}
+                        color="primary"
+                        key="button"
+                    >
+                        Registrieren
+                    </Button>
+                </FormButton>
+            </Grid>
         </form>
     )
 };

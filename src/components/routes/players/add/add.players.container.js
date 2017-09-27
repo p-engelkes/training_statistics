@@ -7,6 +7,7 @@ import {reset} from 'redux-form';
 import {ADD_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 import {PLAYER_LOCATION} from "../../../constants/api.constants";
 import {PLAYERS_ROUTE} from "../../../../router";
+import {Heading} from "../../../heading";
 
 class AddPlayerPresentation extends Component {
     handleAdd = player => {
@@ -33,11 +34,13 @@ class AddPlayerPresentation extends Component {
     };
 
     render() {
-        return <AddPlayerForm
-            onSubmit={this.handleAdd}
-            title="Spieler hinzufügen"
-        >
-        </AddPlayerForm>
+        return [
+            <Heading key="0" title="Spieler hinzufügen"/>,
+            <AddPlayerForm key="1"
+                onSubmit={this.handleAdd}
+                title="Spieler hinzufügen"
+            />
+        ]
     }
 }
 
