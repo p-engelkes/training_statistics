@@ -9,6 +9,7 @@ import {
     ADD_PLAYER_FORM, ADDITIONAL_PLAYER
 } from "../../../constants/forms/player.form.constants";
 import {PlayerFormFields} from "../player.form.fields";
+import PropTypes from 'prop-types';
 
 class AddPlayerFormPresentation extends React.Component {
     render() {
@@ -40,3 +41,7 @@ export const AddPlayerForm = reduxForm({
     form: ADD_PLAYER_FORM,
     validatePlayerForm
 })(withRouter(AddPlayerFormPresentation));
+
+AddPlayerForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};

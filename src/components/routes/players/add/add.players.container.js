@@ -36,10 +36,7 @@ class AddPlayerPresentation extends Component {
     render() {
         return [
             <Heading key="0" title="Spieler hinzufügen"/>,
-            <AddPlayerForm key="1"
-                onSubmit={this.handleAdd}
-                title="Spieler hinzufügen"
-            />
+            <AddPlayerForm key="1" onSubmit={this.handleAdd}/>
         ]
     }
 }

@@ -6,6 +6,7 @@ import renderTextField from "../../form/material.text.field";
 import FormField from "../../form/form.field";
 import FormButton from "../../form/form.button";
 import {LOGIN_FORM, EMAIL, PASSWORD} from "../../constants/forms/user.form.constants";
+import PropTypes from 'prop-types';
 
 const validate = values => {
     const errors = {};
@@ -63,3 +64,8 @@ export const LoginForm = reduxForm({
     form: LOGIN_FORM,
     validate
 })(LoginFormUI);
+
+LoginForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};
+

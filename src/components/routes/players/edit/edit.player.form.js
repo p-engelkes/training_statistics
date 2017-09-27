@@ -5,6 +5,7 @@ import {Button} from "material-ui";
 import {validatePlayerForm} from "../player.form.validation";
 import {PlayerFormFields} from "../player.form.fields";
 import {EDIT_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
+import PropTypes from 'prop-types';
 
 class EditPlayerFormPresentation extends React.Component {
     render() {
@@ -30,3 +31,7 @@ export const EditPlayerForm = reduxForm({
     form: EDIT_PLAYER_FORM,
     validatePlayerForm
 })(EditPlayerFormPresentation);
+
+EditPlayerForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};

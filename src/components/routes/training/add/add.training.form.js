@@ -6,6 +6,7 @@ import FormButton from "../../../form/form.button";
 import {Button} from "material-ui";
 import {SelectPlayerField} from "../../../form/select.player.field";
 import {ADD_TRAINING_FORM, DATE, PLAYERS} from "../../../constants/forms/training.form.constants";
+import PropTypes from 'prop-types';
 
 const validate = values => {
     const errors = {};
@@ -58,3 +59,7 @@ export const AddTrainingForm = reduxForm({
     form: ADD_TRAINING_FORM,
     validate
 })(AddTrainingFormPresentation);
+
+AddTrainingForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};
