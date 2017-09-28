@@ -69,8 +69,7 @@ class SelectPlayerFieldPresentation extends React.Component {
 
         if (isLoaded(players) && !isEmpty(players)) {
             return <div>
-                <div className={classes.fieldLabel}>Trainingstag</div>
-
+                <div className={classes.fieldLabel}>Spieler auswählen</div>
                 <List>
                     {
                         Object.keys(players).map((key) => (

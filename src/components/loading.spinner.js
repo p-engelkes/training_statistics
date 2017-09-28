@@ -1,9 +1,10 @@
 import * as React from "react";
 import {CircularProgress} from "../../node_modules/material-ui/Progress/index";
+import {Grid} from "material-ui";
 
 export const LoadingSpinner = () =>
-    <div className="row center-xs">
-        <div className="col-sx-2">
+    <Grid container justify="center">
+        <Grid item>
             <CircularProgress size={50}/>
-        </div>
-    </div>;
+        </Grid>
+    </Grid>;

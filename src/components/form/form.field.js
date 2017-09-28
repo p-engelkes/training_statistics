@@ -10,7 +10,7 @@ const styles = theme => ({
 
 const FormField = ({children, classes}) => {
     return (
-        <Grid container justify="center">
+        <Grid container justify="center" className={classes.padding}>
             <Grid item xs={12} lg={8}>
                 {children}
             </Grid>

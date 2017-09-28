@@ -7,12 +7,17 @@ import {Button} from "material-ui";
 import {SelectPlayerField} from "../../../form/select.player.field";
 import {ADD_TRAINING_FORM, DATE, PLAYERS} from "../../../constants/forms/training.form.constants";
 import PropTypes from 'prop-types';
+import SelectSeasonField from "../../../form/select.season.field";
+import {SEASON} from "../../../constants/forms/season.form.constants";
 
 const validate = values => {
     const errors = {};
 
     if (!values.date) {
         errors.date = 'Ein Datum muss ausgewählt werden'
+    }
+    if (!values[SEASON]) {
+        errors[SEASON] = "Eine Saison muss ausgewählt werden"
     }
 
     return errors;
@@ -23,6 +28,14 @@ class AddTrainingFormPresentation extends React.Component {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
+            <FormField>
+                <Field
+                    name={SEASON}
+                    value=''
+                    component={SelectSeasonField}
+                    seasons={this.props.seasons}
+                />
+            </FormField>
             <FormField>
                 <Field
                     name={DATE}
@@ -41,7 +54,6 @@ class AddTrainingFormPresentation extends React.Component {
                 />
             </FormField>
             <FormButton>
-
                 <Button
                     type="submit"
                     disabled={invalid || submitting}
@@ -61,5 +73,6 @@ export const AddTrainingForm = reduxForm({
 })(AddTrainingFormPresentation);
 
 AddTrainingForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    seasons: PropTypes.object
 };

@@ -4,27 +4,30 @@ import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change, reset} from 'redux-form';
 import {ADD_TRAINING_FORM, DATE} from "../../../constants/forms/training.form.constants";
-import {PLAYER_LOCATION, TRAINING_LOCATION} from "../../../constants/api.constants";
+import {PLAYER_LOCATION, SEASON_LOCATION, TRAINING_LOCATION} from "../../../constants/api.constants";
 import {Heading} from "../../../heading";
+import {SEASON} from "../../../constants/forms/season.form.constants";
 
 class AddTrainingPresentation extends Component {
-    componentDidMount() {
+    getCurrentDay() {
         let today = new Date();
         let dd = today.getDate();
         let mm = today.getMonth() + 1; //January is 0!
         const yyyy = today.getFullYear();
 
-        if(dd<10) {
-            dd = '0'+dd
+        if (dd < 10) {
+            dd = '0' + dd
         }
 
-        if(mm<10) {
-            mm = '0'+mm
+        if (mm < 10) {
+            mm = '0' + mm
         }
 
-        today = yyyy + '-' + mm + '-' + dd;
+        return yyyy + '-' + mm + '-' + dd;
+    }
 
-        this.props.dispatch(change(ADD_TRAINING_FORM, DATE, today))
+    componentDidMount() {
+        this.props.dispatch(change(ADD_TRAINING_FORM, DATE, this.getCurrentDay()))
     }
 
     handleAdd = training => {
@@ -38,21 +41,29 @@ class AddTrainingPresentation extends Component {
     };
 
     resetForm = () => {
-        this.props.dispatch(reset(ADD_TRAINING_FORM))
+        this.props.dispatch(reset(ADD_TRAINING_FORM));
+        this.props.dispatch(change(ADD_TRAINING_FORM, DATE, this.getCurrentDay()));
+        this.props.dispatch(change(ADD_TRAINING_FORM, SEASON, ''));
     };
 
     render() {
+        const {players, seasons} = this.props;
         return [
-            <Heading key="0" title="Training hinzufügen" />,
-            <AddTrainingForm key="1" onSubmit={this.handleAdd} players={this.props.players}/>
+            <Heading key="0" title="Training hinzufügen"/>,
+            <AddTrainingForm key="1"
+                             onSubmit={this.handleAdd}
+                             players={players}
+                             seasons={seasons}
+            />
         ]
     }
 }
 
-const wrappedPlayer = firebaseConnect([`/${PLAYER_LOCATION}`])(AddTrainingPresentation);
+const wrappedPlayer = firebaseConnect([`/${PLAYER_LOCATION}`, `/${SEASON_LOCATION}`])(AddTrainingPresentation);
 export const AddTraining = (connect(
-    ({firebase: {auth, data: {players}}}) => ({
+    ({firebase: {auth, data: {players, seasons}}}) => ({
         auth,
-        players
+        players,
+        seasons
     })
 )(wrappedPlayer));

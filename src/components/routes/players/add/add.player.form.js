@@ -3,7 +3,6 @@ import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
 import FormButton from "../../../form/form.button";
 import renderCheckBox from "../../../form/material.checkbox.field";
-import {withRouter} from "react-router-dom";
 import {validatePlayerForm} from "../player.form.validation";
 import {
     ADD_PLAYER_FORM, ADDITIONAL_PLAYER
