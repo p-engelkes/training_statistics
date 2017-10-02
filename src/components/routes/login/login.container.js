@@ -11,8 +11,8 @@ class LoginPresentation extends Component {
 
     render() {
         return [
-            <Heading title="Login"/>,
-            <LoginForm onSubmit={this.handleLogin}/>
+            <Heading key="0" title="Login"/>,
+            <LoginForm key="1" onSubmit={this.handleLogin}/>
         ]
     }
 }

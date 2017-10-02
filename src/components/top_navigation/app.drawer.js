@@ -7,7 +7,7 @@ import Hidden from 'material-ui/Hidden'
 
 import IconButton from 'material-ui/IconButton'
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft'
-import {DrawerMenuItems} from "./app.drawer.elements";
+import DrawerMenuItems from "./app.drawer.elements";
 
 const styles = theme => ({
     paper: {
@@ -21,7 +21,6 @@ const styles = theme => ({
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
         padding: '0 8px',
         ...theme.mixins.toolbar,
     },
@@ -29,18 +28,28 @@ const styles = theme => ({
 
 
 function AppDrawer(props, context) {
-    const { classes, className, mobileDrawerOpen, onRequestClose } = props;
+    const {classes, className, mobileDrawerOpen, closeDrawer} = props;
+
+    const drawerHeader = (
+        <div className={classes.drawerHeader}>
+            <Hidden mdDown>
+                <h3>Trainings Statistiken</h3>
+            </Hidden>
+            <Hidden lgUp>
+                <h5>Trainings Statistiken</h5>
+            </Hidden>
+            <Hidden lgUp implementation="css">
+                <IconButton onClick={closeDrawer} style={{justifyContent: 'flex-end'}}>
+                    <ChevronLeftIcon/>
+                </IconButton>
+            </Hidden>
+        </div>
+    );
 
     const drawer = (
         <div id="first drawer div">
-            <div className={classes.drawerHeader}>
-                <Hidden lgUp implementation="css">
-                    <IconButton onClick={onRequestClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </Hidden>
-            </div>
-            <DrawerMenuItems/>
+            {drawerHeader}
+            <DrawerMenuItems closeDrawer={closeDrawer}/>
         </div>
     );
 
@@ -53,7 +62,7 @@ function AppDrawer(props, context) {
                     }}
                     type="temporary"
                     open={mobileDrawerOpen}
-                    onRequestClose={onRequestClose}
+                    onRequestClose={closeDrawer}
                     ModalProps={{
                         keepMounted: true,
                     }}
@@ -81,7 +90,7 @@ AppDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     mobileDrawerOpen: PropTypes.bool.isRequired,
-    onRequestClose: PropTypes.func.isRequired,
+    closeDrawer: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AppDrawer);

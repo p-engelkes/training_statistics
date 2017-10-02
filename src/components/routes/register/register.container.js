@@ -17,8 +17,8 @@ class RegisterPresentation extends React.Component {
 
     render() {
         return [
-            <Heading title="Registrieren"/>,
-            <RegisterForm onSubmit={this.handleRegister}/>
+            <Heading key="0" title="Registrieren"/>,
+            <RegisterForm key="1" onSubmit={this.handleRegister}/>
         ]
 
     }

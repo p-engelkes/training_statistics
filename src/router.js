@@ -33,7 +33,7 @@ const ConnectedRouting = (props) => {
         <ConnectedRouter history={history}>
             <div>
                 <TopNavigation />
-                <Grid container className={props.classes.container} spacing={24}>
+                <Grid container className={props.classes.container} spacing={24} style={{paddingTop: 60}}>
                     {
                         authenticatedRoutes.map((route, index) => (
                             <Route

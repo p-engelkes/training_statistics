@@ -30,7 +30,7 @@ class AddSeasonPresentation extends React.Component {
     render() {
         return [
             <Heading key="0" title="Saison hinzufügen" />,
-            <AddSeasonForm onSubmit={this.handleAdd}/>
+            <AddSeasonForm key="1" onSubmit={this.handleAdd}/>
         ]
     }
 }
