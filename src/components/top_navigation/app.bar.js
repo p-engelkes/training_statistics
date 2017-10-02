@@ -1,95 +1,102 @@
 import React from 'react';
-import {AppBar, Button, IconButton, Menu, Toolbar, Typography, withStyles} from "material-ui";
+import {AppBar, Hidden, IconButton, Menu, Toolbar, Typography, withStyles} from "material-ui";
 import MenuIcon from 'material-ui-icons/Menu';
-import {Link} from "react-router-dom";
-import {firebaseConnect, isEmpty} from "react-redux-firebase";
+import MoreVertIcon from 'material-ui-icons/MoreVert';
+import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
-import {MenuItem} from "../../../node_modules/material-ui/Menu/index";
-import {ADD_PLAYER_ROUTE, LOGIN_ROUTE, PLAYERS_ROUTE, REGISTER_ROUTE} from "../../router";
+import {AppBarMenuItemsExport} from "./app.drawer.elements";
+import AppDrawer from './app.drawer';
 
-const styles = {
+const styles = theme => ({
     flex: {
         flex: 1
     },
     menuButton: {
         marginLeft: 12,
         marginRight: 20
+    },
+    typography: {
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: 200
+        },
+        [theme.breakpoints.down('lg')]: {
+            marginLeft: 0
+        }
     }
-};
+});
 
 class TopNavigation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            mobileDrawerOpen: false,
             anchorEl: null,
-            open: false
+            dropDownMenuOpen: false
         }
     }
 
-    handleClick = event => {
-        this.setState({open: true, anchorEl: event.currentTarget});
+    handleDrawerClose = () => {
+        this.setState({mobileDrawerOpen: false})
     };
 
-    handleRequestClose = () => {
-        this.setState({open: false});
+    handleDrawerToggle = () => {
+        this.setState({mobileDrawerOpen: !this.state.mobileDrawerOpen})
     };
 
-    handleLogout =() => {
+    handleMenuOpen = event => {
+        this.setState({dropDownMenuOpen: true, anchorEl: event.currentTarget});
+    };
+
+    handleMenuClose = () => {
+        this.setState({dropDownMenuOpen: false});
+    };
+
+    handleLogout = () => {
         this.props.firebase.logout();
     };
 
     render() {
         const {classes} = this.props;
 
-        return (
-            <AppBar position="static">
+        return <div>
+            <AppBar>
                 <Toolbar>
-                    <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography type="title" color="inherit" className={classes.flex}>
+                    <Hidden lgUp implementation="css">
+                        <IconButton
+                            color="contrast"
+                            aria-label="Open Drawer"
+                            onClick={this.handleDrawerToggle}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                    </Hidden>
+                    <Typography type="title" color="inherit" noWrap className={classes.typography}>
                         Trainings Statistiken
                     </Typography>
-                    {
-                        isEmpty(this.props.auth) ?
-                            <div>
-                                <Button color="contrast" to={REGISTER_ROUTE} component={Link}>
-                                    Registrieren
-                                </Button>
-                                <Button color="contrast" to={LOGIN_ROUTE} component={Link}>
-                                    Login
-                                </Button>
-                            </div> :
-                            <div>
-                                <Button
-                                    color="contrast"
-                                    aria-owns={this.state.open ? 'simple-menu' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleClick}
-                                >
-                                    Spieler
-                                </Button>
-                                <Menu
-                                    id="simple-menu"
-                                    anchorEl={this.state.anchorEl}
-                                    open={this.state.open}
-                                    onRequestClose={this.handleRequestClose}
-                                >
-                                    <MenuItem onClick={this.handleRequestClose} to={PLAYERS_ROUTE} component={Link}>
-                                        Liste
-                                    </MenuItem>
-                                    <MenuItem onClick={this.handleRequestClose} to={ADD_PLAYER_ROUTE} component={Link}>
-                                        Hinzufügen
-                                    </MenuItem>
-                                </Menu>
-                                <Button color="contrast" onClick={this.handleLogout}>
-                                    Logout
-                                </Button>
-                            </div>
-                    }
+                    <IconButton
+                        aria-label="More"
+                        aria-owns="Open right Menu"
+                        aria-haspopup="true"
+                        onClick={this.handleMenuOpen}
+                    >
+                        <MoreVertIcon/>
+                    </IconButton>
+
+                    <Menu
+                        id="menuRight"
+                        anchorEl={this.state.anchorEl}
+                        open={this.state.dropDownMenuOpen}
+                        onRequestClose={this.handleMenuClose}
+                    >
+                        <AppBarMenuItemsExport onClick={this.handleMenuClose}/>
+                    </Menu>
                 </Toolbar>
             </AppBar>
-        )
+            <AppDrawer
+                onRequestClose={this.handleDrawerClose}
+                mobileDrawerOpen={this.state.mobileDrawerOpen}
+            />
+        </div>
     }
 }
 
