@@ -2,12 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {firebaseConnect, isEmpty, isLoaded} from 'react-redux-firebase'
 import {PLAYER_LOCATION, TRAINING_LOCATION} from "./constants/api.constants";
-import {IconButton, Paper, Table, Toolbar, Tooltip, Typography} from "material-ui";
+import {Paper, Table, Tooltip} from "material-ui";
 import {
-    TableBody, TableCell, TableFooter, TableHead, TablePagination,
+    TableBody, TableCell, TableHead,
     TableRow, TableSortLabel
 } from "../../node_modules/material-ui/Table/index";
-import {Checkbox} from "../../node_modules/material-ui/index";
 import {withStyles} from 'material-ui/styles';
 import {LoadingSpinner} from "./loading.spinner";
 
@@ -73,16 +72,10 @@ export const Home = connect(
     })
 )(wrappedHome);
 
-let counter = 0;
-
-function createData(name, calories, fat, carbs, protein) {
-    counter += 1;
-    return {id: counter, name, calories, fat, carbs, protein};
-}
-
 const columnData = [
     {id: 'name', numeric: false, disablePadding: true, label: 'Name'},
     {id: 'trainingParticipation', numeric: true, disablePadding: false, label: 'Trainingsbeteiligung'},
+    {id: 'trainingPercentParticipation', numeric: true, disablePadding: false, label: 'Prozentuale Beteiligung'}
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -120,48 +113,6 @@ class EnhancedTableHead extends React.Component {
         );
     }
 }
-
-const toolbarStyles = theme => ({
-    root: {
-        paddingRight: 2,
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.A700,
-                backgroundColor: theme.palette.secondary.A100,
-            }
-            : {
-                color: theme.palette.secondary.A100,
-                backgroundColor: theme.palette.secondary.A700,
-            },
-    spacer: {
-        flex: '1 1 100%',
-    },
-    actions: {
-        color: theme.palette.text.secondary,
-    },
-    title: {
-        flex: '0 0 auto',
-    },
-});
-
-let EnhancedTableToolbar = props => {
-    const {classes} = props;
-
-    return (
-        <Toolbar
-            className={classes.root}
-        >
-            <div className={classes.title}>
-                <Typography type="title">Nutrition</Typography>
-            </div>
-            <div className={classes.spacer}/>
-        </Toolbar>
-    );
-};
-
-EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 const styles = theme => ({
     root: {
@@ -204,11 +155,10 @@ class EnhancedTable extends React.Component {
 
     render() {
         const classes = this.props.classes;
-        const {data, order, orderBy, selected, rowsPerPage, page} = this.state;
+        const {data, order, orderBy, selected} = this.state;
 
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
                 <div className={classes.tableWrapper}>
                     <Table>
                         <EnhancedTableHead
@@ -230,6 +180,7 @@ class EnhancedTable extends React.Component {
                                         key={players[0]}
                                     >
                                         <TableCell padding="none">{name}</TableCell>
+                                        <TableCell numeric>{players[1]}</TableCell>
                                         <TableCell numeric>{players[1]}</TableCell>
                                     </TableRow>
                                 );
