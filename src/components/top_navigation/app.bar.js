@@ -2,6 +2,8 @@ import React from 'react';
 import MenuIcon from 'material-ui-icons/Menu'
 import {AppBar, Hidden, IconButton, Toolbar, Typography, withStyles} from "material-ui";
 import AppDrawer from './app.drawer';
+import {withRouter} from "react-router-dom";
+import {INDEX_ROUTE} from "../../router";
 
 const styles = theme => ({
     flex: {
@@ -35,6 +37,10 @@ class TopNavigation extends React.Component {
         this.setState({mobileDrawerOpen: !this.state.mobileDrawerOpen})
     };
 
+    handleBrandClick = () => {
+        this.props.history.push(INDEX_ROUTE)
+    };
+
     render() {
         const {classes} = this.props;
 
@@ -50,7 +56,7 @@ class TopNavigation extends React.Component {
                             <MenuIcon/>
                         </IconButton>
                     </Hidden>
-                    <Typography type="title" color="inherit" noWrap className={classes.typography}>
+                    <Typography type="title" color="inherit" noWrap className={classes.typography} onClick={this.handleBrandClick}>
                         Trainings Statistiken
                     </Typography>
                 </Toolbar>
@@ -63,6 +69,6 @@ class TopNavigation extends React.Component {
     }
 }
 
-TopNavigation = withStyles(styles)(TopNavigation);
+TopNavigation = withRouter(withStyles(styles)(TopNavigation));
 
 export default TopNavigation;

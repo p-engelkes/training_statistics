@@ -18,7 +18,7 @@ class HomePresentation extends Component {
     calculatePercentages = (trainings) => {
         const trainingsMap = new Map();
         const trainingsForSeason = Object.keys(trainings)
-            .filter(key => trainings[key].season === '-Kv2ykMiCcOvSV2fmPD2')
+            .filter(key => trainings[key].season === '-Kvc-U5OJm8XJRgh-F04')
             .map(key => {
                 const training = trainings[key];
                 training.key = key;
@@ -135,6 +135,10 @@ class EnhancedTable extends React.Component {
             page: 0,
             rowsPerPage: 5,
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({data: nextProps.data})
     }
 
     handleRequestSort = (event, property) => {

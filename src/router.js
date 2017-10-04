@@ -62,6 +62,7 @@ const ConnectedRouting = (props) => {
 
 export default withStyles(styles)(ConnectedRouting);
 
+export const INDEX_ROUTE = "/";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 export const PLAYERS_ROUTE = "/players";

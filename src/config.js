@@ -1,10 +1,10 @@
 export const firebaseConfig = {
-    apiKey: 'AIzaSyB38_qiDQnzpY5LtUicSz--t-P4gJyYMM4',
-    authDomain: 'my-auth-test-7c837.firebaseapp.com',
-    databaseURL: 'https://my-auth-test-7c837.firebaseio.com',
-    projectId: 'my-auth-test-7c837',
-    storageBucket: 'my-auth-test-7c837.appspot.com',
-    messagingSenderId: '740038655892'
+    apiKey: "AIzaSyDpOcurnGnwV9FNIU1jxffWPNk-lFfPFSw",
+    authDomain: "trainings-statistics.firebaseapp.com",
+    databaseURL: "https://trainings-statistics.firebaseio.com",
+    projectId: "trainings-statistics",
+    storageBucket: "",
+    messagingSenderId: "507891488091"
 };
 
 export const reduxFirebase = {
