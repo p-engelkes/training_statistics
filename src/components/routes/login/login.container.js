@@ -3,6 +3,8 @@ import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {LoginForm} from "./login.form";
 import {Heading} from "../../heading";
+import {withTitle} from "../../withTitleHOC";
+import {compose} from "redux";
 
 class LoginPresentation extends Component {
     handleLogin = loginData => {
@@ -10,16 +12,16 @@ class LoginPresentation extends Component {
     };
 
     render() {
-        return [
-            <Heading key="0" title="Login"/>,
-            <LoginForm key="1" onSubmit={this.handleLogin}/>
-        ]
+        return <LoginForm key="1" onSubmit={this.handleLogin}/>
     }
 }
 
-const wrappedLogin = firebaseConnect()(LoginPresentation);
-export const Login = connect(
-    ({firebase: {authError}}) => ({
-        authError
-    })
-)(wrappedLogin);
+export const Login = compose(
+    firebaseConnect(),
+    connect(
+        ({firebase: {authError}}) => ({
+            authError
+        })
+    ),
+    withTitle("Login")
+)(LoginPresentation);

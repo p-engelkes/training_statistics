@@ -2,7 +2,7 @@ import React from 'react';
 import {ConnectedRouter} from 'react-router-redux';
 import TopNavigation from "./components/top_navigation/app.bar";
 import {Route} from "react-router-dom";
-import {history} from "./store";
+import {history} from "./store/store";
 import {Home} from "./components/home";
 import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";

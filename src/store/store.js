@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 import {createStore, compose, applyMiddleware} from "redux";
-import {makeRootReducer} from "./reducer";
+import {makeRootReducer} from "../reducer";
 import {reactReduxFirebase} from 'react-redux-firebase';
-import {firebaseConfig, reduxFirebase} from "./config";
+import {firebaseConfig, reduxFirebase} from "../config";
 import createHistory from 'history/createBrowserHistory';
 import {routerMiddleware} from "react-router-redux";
 

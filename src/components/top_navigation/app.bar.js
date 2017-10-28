@@ -4,6 +4,8 @@ import {AppBar, Hidden, IconButton, Toolbar, Typography, withStyles} from "mater
 import AppDrawer from './app.drawer';
 import {withRouter} from "react-router-dom";
 import {INDEX_ROUTE} from "../../router";
+import {compose} from "redux";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     flex: {
@@ -56,8 +58,9 @@ class TopNavigation extends React.Component {
                             <MenuIcon/>
                         </IconButton>
                     </Hidden>
-                    <Typography type="title" color="inherit" noWrap className={classes.typography} onClick={this.handleBrandClick}>
-                        Trainings Statistiken
+                    <Typography type="title" color="inherit" noWrap className={classes.typography}
+                                onClick={this.handleBrandClick}>
+                        {this.props.title}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -69,6 +72,14 @@ class TopNavigation extends React.Component {
     }
 }
 
-TopNavigation = withRouter(withStyles(styles)(TopNavigation));
+TopNavigation = compose(
+    withRouter,
+    withStyles(styles),
+    connect(
+        (state) => ({
+            title: state.title
+        })
+    )
+)(TopNavigation);
 
 export default TopNavigation;
