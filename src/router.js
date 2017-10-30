@@ -7,60 +7,12 @@ import {Home} from "./components/home";
 import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";
 import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authentication";
-import {Player} from "./components/routes/players/list.players";
+import {PlayerList} from "./components/routes/players/player.list";
 import {AddPlayer} from "./components/routes/players/add/add.players.container";
-import {AddTraining} from "./components/routes/training/add/add.training.form.container";
+import {AddTraining} from "./components/routes/training/add/add.training.container";
 import {Grid} from "material-ui";
 import {withStyles} from 'material-ui/styles';
 import {AddSeason} from "./components/routes/seasons/add/add.season.container";
-
-const styles = theme => ({
-    container: {
-        paddingTop: 10,
-        [theme.breakpoints.up('md')]: {
-            width: '70%',
-            margin: '0 auto'
-        },
-        [theme.breakpoints.down('md')]: {
-            width: '100%',
-            margin: '0 auto'
-        }
-    }
-});
-
-const ConnectedRouting = (props) => {
-    return (
-        <ConnectedRouter history={history}>
-            <div>
-                <TopNavigation />
-                <Grid container className={props.classes.container} spacing={24} style={{paddingTop: 60}}>
-                    {
-                        authenticatedRoutes.map((route, index) => (
-                            <Route
-                                key={index}
-                                exact={route.exact}
-                                path={route.path}
-                                component={userIsAuthenticated(route.component)}
-                            />
-                        ))
-                    }
-                    {
-                        unauthenticatedRoutes.map((route, index) => (
-                            <Route
-                                key={index}
-                                exact={route.exact}
-                                path={route.path}
-                                component={userIsNotAuthenticated(route.component)}
-                            />
-                        ))
-                    }
-                </Grid>
-            </div>
-        </ConnectedRouter>
-    )
-};
-
-export default withStyles(styles)(ConnectedRouting);
 
 export const INDEX_ROUTE = "/";
 export const LOGIN_ROUTE = "/login";
@@ -79,7 +31,7 @@ const authenticatedRoutes = [
     {
         path: PLAYERS_ROUTE,
         exact: true,
-        component: Player
+        component: PlayerList
     },
     {
         path: ADD_PLAYER_ROUTE,
@@ -110,3 +62,51 @@ const unauthenticatedRoutes = [
         component: Register
     },
 ];
+
+const styles = theme => ({
+    container: {
+        paddingTop: 80,
+        [theme.breakpoints.up('md')]: {
+            width: '70%',
+            margin: '0 auto'
+        },
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            margin: '0 auto'
+        }
+    }
+});
+
+const ConnectedRouting = (props) => {
+    const authenticatedRouteComponents = authenticatedRoutes.map((route) => {
+        return <Route
+            key={route.path}
+            exact={route.exact}
+            path={route.path}
+            component={userIsAuthenticated(route.component)}
+        />
+    });
+
+    const unauthenticatedRouteComponents = unauthenticatedRoutes.map(route => {
+        return <Route
+            key={route.path}
+            exact={route.exact}
+            path={route.path}
+            component={userIsNotAuthenticated(route.component)}
+        />
+    });
+
+    return (
+        <ConnectedRouter history={history}>
+            <div>
+                <TopNavigation/>
+                <Grid container className={props.classes.container} spacing={24}>
+                    {authenticatedRouteComponents}
+                    {unauthenticatedRouteComponents}
+                </Grid>
+            </div>
+        </ConnectedRouter>
+    )
+};
+
+export default withStyles(styles)(ConnectedRouting);

@@ -7,7 +7,8 @@ import {reset} from 'redux-form';
 import {ADD_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 import {PLAYER_LOCATION} from "../../../constants/api.constants";
 import {PLAYERS_ROUTE} from "../../../../router";
-import {Heading} from "../../../heading";
+import {compose} from "redux";
+import {withTitle} from "../../../withTitleHOC";
 
 class AddPlayerPresentation extends Component {
     handleAdd = player => {
@@ -34,16 +35,17 @@ class AddPlayerPresentation extends Component {
     };
 
     render() {
-        return [
-            <Heading key="0" title="Spieler hinzufügen"/>,
-            <AddPlayerForm key="1" onSubmit={this.handleAdd}/>
-        ]
+        return <AddPlayerForm key="1" onSubmit={this.handleAdd}/>
     }
 }
 
-const wrappedAddPlayer = firebaseConnect()(AddPlayerPresentation);
-export const AddPlayer = connect(
-    ({firebase: {auth}}) => ({
-        auth
-    })
-)(withRouter(wrappedAddPlayer));
+export const AddPlayer = compose(
+    firebaseConnect(),
+    connect(
+        ({firebase: {auth}}) => ({
+            auth
+        })
+    ),
+    withTitle("Spieler hinzufügen"),
+    withRouter
+)(AddPlayerPresentation);

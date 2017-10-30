@@ -2,7 +2,8 @@ import React from 'react';
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import RegisterForm from "./register.form";
-import {Heading} from "../../heading";
+import {compose} from "redux";
+import {withTitle} from "../../withTitleHOC";
 
 
 class RegisterPresentation extends React.Component {
@@ -16,17 +17,16 @@ class RegisterPresentation extends React.Component {
     };
 
     render() {
-        return [
-            <Heading key="0" title="Registrieren"/>,
-            <RegisterForm key="1" onSubmit={this.handleRegister}/>
-        ]
-
+        return <RegisterForm key="1" onSubmit={this.handleRegister}/>
     }
 }
 
-const wrappedRegister = firebaseConnect()(RegisterPresentation);
-export const Register = connect(
-    ({firebase: {authError}}) => ({
-        authError
-    })
-)(wrappedRegister);
+export const Register = compose(
+    firebaseConnect(),
+    connect(
+        ({firebase: {authError}}) => ({
+            authError
+        })
+    ),
+    withTitle("Registrieren")
+)(RegisterPresentation);

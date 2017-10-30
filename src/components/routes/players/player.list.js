@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
+import {firebaseConnect, isEmpty, isLoaded} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change} from 'redux-form';
 import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
 import {Grid, IconButton} from "material-ui";
 import DeleteIcon from 'material-ui-icons/Delete';
 import {withStyles} from 'material-ui/styles';
-import {Heading} from "../../heading";
 import {EditPlayerForm} from "./edit/edit.player.form";
 import {LoadingSpinner} from "../../loading.spinner";
 import {EDIT_PLAYER_FORM, FIRST_NAME, LAST_NAME} from "../../constants/forms/player.form.constants";
 import {PLAYER_LOCATION} from "../../constants/api.constants";
+import {withTitle} from "../../withTitleHOC";
+import {compose} from "redux";
 
 const styles = theme => ({
     selected: {
@@ -18,7 +19,7 @@ const styles = theme => ({
     }
 });
 
-class PlayerPresentation extends Component {
+class PlayerListPresentation extends Component {
     state = {
         selected: null
     };
@@ -63,7 +64,6 @@ class PlayerPresentation extends Component {
         const {players} = this.props;
 
         return <Grid container justify="center">
-            <Heading title="Spielerübersicht"/>
             {
                 isLoaded(this.props.players) && !isEmpty(this.props.players) ?
                     <Grid item xs={12} lg={6}>
@@ -102,10 +102,14 @@ class PlayerPresentation extends Component {
     }
 }
 
-const wrappedPlayer = firebaseConnect([`/${PLAYER_LOCATION}`])(PlayerPresentation);
-export const Player = (connect(
-    ({firebase: {auth, data: {players}}}) => ({
-        auth,
-        players
-    })
-)(withStyles(styles)(wrappedPlayer)));
+export const PlayerList = compose(
+    firebaseConnect([`/${PLAYER_LOCATION}`]),
+    connect(
+        ({firebase: {auth, data: {players}}}) => ({
+            auth,
+            players
+        })
+    ),
+    withStyles(styles),
+    withTitle("Spielerübersicht")
+)(PlayerListPresentation);

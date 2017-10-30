@@ -2,11 +2,12 @@ import React from 'react';
 import {ADD_SEASON_FORM, ADDITIONAL_SEASON, SEASON} from "../../../constants/forms/season.form.constants";
 import {SEASON_LOCATION} from "../../../constants/api.constants";
 import {reset} from 'redux-form';
-import {Heading} from "../../../heading";
 import AddSeasonForm from "./add.season.form";
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
+import {compose} from "redux";
+import {withTitle} from "../../../withTitleHOC";
 
 class AddSeasonPresentation extends React.Component {
     handleAdd = season => {
@@ -28,16 +29,17 @@ class AddSeasonPresentation extends React.Component {
     };
 
     render() {
-        return [
-            <Heading key="0" title="Saison hinzufügen" />,
-            <AddSeasonForm key="1" onSubmit={this.handleAdd}/>
-        ]
+        return <AddSeasonForm key="1" onSubmit={this.handleAdd}/>
     }
 }
 
-const wrappedAddSeason = firebaseConnect()(AddSeasonPresentation);
-export const AddSeason = connect(
-    ({firebase: {auth}}) => ({
-        auth
-    })
-)(withRouter(wrappedAddSeason));
+export const AddSeason = compose(
+    firebaseConnect(),
+    connect(
+        ({firebase: {auth}}) => ({
+            auth
+        })
+    ),
+    withTitle("Saison hinzufügen"),
+    withRouter
+)(AddSeasonPresentation);
