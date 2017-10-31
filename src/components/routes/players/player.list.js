@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import {firebaseConnect, isEmpty, isLoaded} from "react-redux-firebase";
+import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {change} from 'redux-form';
-import List, {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
-import {Grid, IconButton} from "material-ui";
-import DeleteIcon from 'material-ui-icons/Delete';
+import {Grid} from "material-ui";
 import {withStyles} from 'material-ui/styles';
 import {EditPlayerForm} from "./edit/edit.player.form";
-import {LoadingSpinner} from "../../loading.spinner";
 import {EDIT_PLAYER_FORM, FIRST_NAME, LAST_NAME} from "../../constants/forms/player.form.constants";
 import {PLAYER_LOCATION} from "../../constants/api.constants";
-import {withTitle} from "../../withTitleHOC";
+import {withTitle} from "../../utilities/withTitleHOC";
 import {compose} from "redux";
+import ComponentOrLoading from "../../utilities/component.or.loading";
+import PlayerGrid from "../player.grid";
+import ComponentOrNothing from "../../utilities/component.or.nothing";
 
 const styles = theme => ({
     selected: {
@@ -19,18 +19,26 @@ const styles = theme => ({
     }
 });
 
-class PlayerListPresentation extends Component {
+class PlayerListComponent extends Component {
     state = {
         selected: null
     };
 
-    handleUpdate = player => {
+    /**
+     *
+     * @param player to update with the nw properties
+     */
+    updatePlayer = player => {
         if (this.props.auth) {
             this.props.firebase.updateWithMeta(`/${PLAYER_LOCATION}/${this.state.selected.key}`, player)
         }
     };
 
-    handleDelete = key => {
+    /**
+     *
+     * @param key of the given player to delete
+     */
+    deletePlayer = key => {
         if (this.props.auth) {
             this.props.firebase.remove(`/${PLAYER_LOCATION}/${key}`).catch(err => {
                 console.log(err)
@@ -41,13 +49,22 @@ class PlayerListPresentation extends Component {
         }
     };
 
+    /**
+     * Sets the state to the selected player and its key
+     * @param selected object which contains the player object and the key string
+     */
     handleListItemClicked = selected => {
         this.setState({selected});
         this.props.dispatch(change(EDIT_PLAYER_FORM, FIRST_NAME, selected.player.firstName));
         this.props.dispatch(change(EDIT_PLAYER_FORM, LAST_NAME, selected.player.lastName));
     };
 
-    getSelectedClass(key) {
+    /**
+     * If the player is selected the background is highlighted with the accent color else null is returned
+     * @param key of the player
+     * @returns {string} className for this player
+     */
+    getSelectedClass = key => {
         const {selected} = this.state;
         const {classes} = this.props;
 
@@ -58,47 +75,37 @@ class PlayerListPresentation extends Component {
         }
 
         return ''
-    }
+    };
 
     render() {
         const {players} = this.props;
+        const {selected} = this.state;
 
-        return <Grid container justify="center">
-            {
-                isLoaded(this.props.players) && !isEmpty(this.props.players) ?
-                    <Grid item xs={12} lg={6}>
-                        <List>
-                            {
-                                Object.keys(players).map((key) => (
-                                    <ListItem key={key} dense button
-                                              onClick={() => this.handleListItemClicked({
-                                                  player: players[key],
-                                                  key
-                                              })}
-                                              className={this.getSelectedClass(key)}
-                                    >
-                                        <ListItemText primary={`${players[key].firstName} ${players[key].lastName}`}/>
-                                        <ListItemSecondaryAction>
-                                            <IconButton aria-label="Delete" onClick={() => this.handleDelete(key)}>
-                                                <DeleteIcon/>
-                                            </IconButton>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                ))
-                            }
-                        </List>
-                    </Grid> :
-                        <LoadingSpinner />
-            }
-            {
-                this.state.selected &&
-                <EditPlayerForm onSubmit={this.handleUpdate}
-                                player={this.state.selected}
-                                title=""
-                                buttonLabel="aktualisieren"
+        return (
+            <Grid container justify="center">
+                <ComponentOrLoading
+                    test={players}
+                    component={() =>
+                        <PlayerGrid
+                            players={players}
+                            handleItemClick={this.handleListItemClicked}
+                            handleDelete={this.deletePlayer}
+                            getSelectedClass={this.getSelectedClass}
+                        />
+                    }
                 />
-            }
-        </Grid>
+                <ComponentOrNothing
+                    test={selected}
+                    component={() =>
+                        <EditPlayerForm onSubmit={this.updatePlayer}
+                                        player={selected}
+                                        title=""
+                                        buttonLabel="aktualisieren"
+                        />
+                    }
+                />
+            </Grid>
+        )
     }
 }
 
@@ -112,4 +119,4 @@ export const PlayerList = compose(
     ),
     withStyles(styles),
     withTitle("Spielerübersicht")
-)(PlayerListPresentation);
+)(PlayerListComponent);

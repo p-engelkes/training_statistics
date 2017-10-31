@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {setTitle} from "../store/title/title.actions";
+import {setTitle} from "../../store/title/title.actions";
 
 export const withTitle = (title) => (WrappedComponent) => {
     class WithTitleComponent extends React.Component {

@@ -5,7 +5,7 @@ import {validEmail} from '../../../utils/forms'
 import renderTextField from "../../form/material.text.field";
 import FormField from "../../form/form.field";
 import FormButton from "../../form/form.button";
-import {LOGIN_FORM, EMAIL, PASSWORD} from "../../constants/forms/user.form.constants";
+import {EMAIL, LOGIN_FORM, PASSWORD} from "../../constants/forms/user.form.constants";
 import PropTypes from 'prop-types';
 
 const validate = values => {
@@ -23,7 +23,7 @@ const validate = values => {
     return errors;
 };
 
-const LoginFormUI = props => {
+const LoginFormPresentation = props => {
     const {handleSubmit, invalid, submitting} = props;
     return (
         <form onSubmit={handleSubmit}>
@@ -63,7 +63,7 @@ const LoginFormUI = props => {
 export const LoginForm = reduxForm({
     form: LOGIN_FORM,
     validate
-})(LoginFormUI);
+})(LoginFormPresentation);
 
 LoginForm.propTypes = {
     onSubmit: PropTypes.func.isRequired

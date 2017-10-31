@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {LoginForm} from "./login.form";
-import {withTitle} from "../../withTitleHOC";
+import {withTitle} from "../../utilities/withTitleHOC";
 import {compose} from "redux";
 
 class LoginPresentation extends Component {

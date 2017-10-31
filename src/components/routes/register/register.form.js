@@ -28,7 +28,7 @@ const validate = values => {
     return errors;
 };
 
-let RegisterForm = props => {
+let RegisterFormUI = props => {
     const {handleSubmit, invalid, submitting} = props;
 
     return (
@@ -80,13 +80,11 @@ let RegisterForm = props => {
     )
 };
 
-RegisterForm = reduxForm({
+export const RegisterForm = reduxForm({
     form: REGISTER_FORM,
     validate
-})(RegisterForm);
+})(RegisterFormUI);
 
-export default RegisterForm
-
-RegisterForm.propTypes = {
+RegisterFormUI.propTypes = {
     onSubmit: PropTypes.func.isRequired
 };

@@ -4,13 +4,11 @@ import {Button} from "material-ui";
 import FormButton from "../../../form/form.button";
 import renderCheckBox from "../../../form/material.checkbox.field";
 import {validatePlayerForm} from "../player.form.validation";
-import {
-    ADD_PLAYER_FORM, ADDITIONAL_PLAYER
-} from "../../../constants/forms/player.form.constants";
+import {ADD_PLAYER_FORM, ADDITIONAL_PLAYER} from "../../../constants/forms/player.form.constants";
 import {PlayerFormFields} from "../player.form.fields";
 import PropTypes from 'prop-types';
 
-class AddPlayerFormPresentation extends React.Component {
+class AddPlayerFormUI extends React.Component {
     render() {
         const {invalid, submitting} = this.props;
 
@@ -39,7 +37,7 @@ class AddPlayerFormPresentation extends React.Component {
 export const AddPlayerForm = reduxForm({
     form: ADD_PLAYER_FORM,
     validatePlayerForm
-})(AddPlayerFormPresentation);
+})(AddPlayerFormUI);
 
 AddPlayerForm.propTypes = {
     onSubmit: PropTypes.func.isRequired

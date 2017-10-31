@@ -7,7 +7,7 @@ import {PlayerFormFields} from "../player.form.fields";
 import {EDIT_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 import PropTypes from 'prop-types';
 
-class EditPlayerFormPresentation extends React.Component {
+class EditPlayerFormUI extends React.Component {
     render() {
         const {invalid, submitting} = this.props;
 
@@ -30,7 +30,7 @@ class EditPlayerFormPresentation extends React.Component {
 export const EditPlayerForm = reduxForm({
     form: EDIT_PLAYER_FORM,
     validatePlayerForm
-})(EditPlayerFormPresentation);
+})(EditPlayerFormUI);
 
 EditPlayerForm.propTypes = {
     onSubmit: PropTypes.func.isRequired

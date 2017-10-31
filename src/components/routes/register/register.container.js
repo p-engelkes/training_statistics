@@ -1,10 +1,9 @@
 import React from 'react';
 import {firebaseConnect} from "react-redux-firebase";
 import {connect} from "react-redux";
-import RegisterForm from "./register.form";
 import {compose} from "redux";
-import {withTitle} from "../../withTitleHOC";
-
+import {withTitle} from "../../utilities/withTitleHOC";
+import {RegisterForm} from "./register.form";
 
 class RegisterPresentation extends React.Component {
     handleRegister = registerData => {

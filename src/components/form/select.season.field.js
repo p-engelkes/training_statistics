@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {InputLabel} from "../../../node_modules/material-ui/Input/index";
 import {Input, Select} from "material-ui";
 import {MenuItem} from "../../../node_modules/material-ui/Menu/index";
-import {isLoaded, isEmpty} from 'react-redux-firebase';
-import {LoadingSpinner} from "../loading.spinner";
+import {isEmpty, isLoaded} from 'react-redux-firebase';
+import {LoadingSpinner} from "../utilities/loading.spinner";
 import {FormControl} from "../../../node_modules/material-ui/Form/index";
 
 export default class SelectSeasonField extends React.Component {

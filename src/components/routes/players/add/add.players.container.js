@@ -8,7 +8,7 @@ import {ADD_PLAYER_FORM} from "../../../constants/forms/player.form.constants";
 import {PLAYER_LOCATION} from "../../../constants/api.constants";
 import {PLAYERS_ROUTE} from "../../../../router";
 import {compose} from "redux";
-import {withTitle} from "../../../withTitleHOC";
+import {withTitle} from "../../../utilities/withTitleHOC";
 
 class AddPlayerPresentation extends Component {
     handleAdd = player => {

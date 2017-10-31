@@ -18,7 +18,7 @@ const validate = values => {
     return errors;
 };
 
-let AddSeasonForm = ({invalid, submitting, handleSubmit}) =>
+let AddSeasonFormUI = ({invalid, submitting, handleSubmit}) =>
     <form onSubmit={handleSubmit}>
         <FormField>
             <Field
@@ -46,12 +46,10 @@ let AddSeasonForm = ({invalid, submitting, handleSubmit}) =>
         </FormButton>
     </form>;
 
-AddSeasonForm = reduxForm({
+export const AddSeasonForm = reduxForm({
     form: ADD_SEASON_FORM,
     validate
-})(AddSeasonForm);
-
-export default AddSeasonForm
+})(AddSeasonFormUI);
 
 AddSeasonForm.propTypes = {
     onSubmit: PropTypes.func.isRequired

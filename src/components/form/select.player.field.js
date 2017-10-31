@@ -2,8 +2,8 @@ import React from 'react';
 import {List} from "material-ui";
 import {ListItem, ListItemText} from "../../../node_modules/material-ui/List/index";
 import {withStyles} from 'material-ui/styles';
-import {isLoaded, isEmpty} from "react-redux-firebase";
-import {LoadingSpinner} from "../loading.spinner";
+import {isEmpty, isLoaded} from "react-redux-firebase";
+import {LoadingSpinner} from "../utilities/loading.spinner";
 
 const fieldLabel = {
     color: 'rgba(0, 0, 0, 0.54)',

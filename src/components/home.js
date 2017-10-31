@@ -3,12 +3,9 @@ import {connect} from 'react-redux'
 import {firebaseConnect, isEmpty, isLoaded} from 'react-redux-firebase'
 import {PLAYER_LOCATION, TRAINING_LOCATION} from "./constants/api.constants";
 import {Paper, Table, Tooltip} from "material-ui";
-import {
-    TableBody, TableCell, TableHead,
-    TableRow, TableSortLabel
-} from "../../node_modules/material-ui/Table/index";
+import {TableBody, TableCell, TableHead, TableRow, TableSortLabel} from "../../node_modules/material-ui/Table/index";
 import {withStyles} from 'material-ui/styles';
-import {LoadingSpinner} from "./loading.spinner";
+import {LoadingSpinner} from "./utilities/loading.spinner";
 
 class HomePresentation extends Component {
     state = {

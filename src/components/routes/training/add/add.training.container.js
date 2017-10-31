@@ -6,7 +6,7 @@ import {change, reset} from 'redux-form';
 import {ADD_TRAINING_FORM, DATE} from "../../../constants/forms/training.form.constants";
 import {PLAYER_LOCATION, SEASON_LOCATION, TRAINING_LOCATION} from "../../../constants/api.constants";
 import {SEASON} from "../../../constants/forms/season.form.constants";
-import {withTitle} from "../../../withTitleHOC";
+import {withTitle} from "../../../utilities/withTitleHOC";
 import {compose} from "redux";
 
 class AddTrainingPresentation extends Component {
