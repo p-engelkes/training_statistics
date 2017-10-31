@@ -10,7 +10,7 @@ import {PLAYER_LOCATION} from "../../constants/api.constants";
 import {withTitle} from "../../utilities/withTitleHOC";
 import {compose} from "redux";
 import ComponentOrLoading from "../../utilities/component.or.loading";
-import PlayerGrid from "../player.grid";
+import PlayerGrid from "./player.grid";
 import ComponentOrNothing from "../../utilities/component.or.nothing";
 
 const styles = theme => ({

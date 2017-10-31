@@ -8,6 +8,9 @@ import Hidden from 'material-ui/Hidden'
 import IconButton from 'material-ui/IconButton'
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft'
 import DrawerMenuItems from "./app.drawer.elements";
+import {withRouter} from "react-router-dom";
+import {INDEX_ROUTE} from "../../router";
+import {compose} from "redux";
 
 const styles = theme => ({
     paper: {
@@ -23,20 +26,34 @@ const styles = theme => ({
         alignItems: 'center',
         padding: '0 8px',
         ...theme.mixins.toolbar,
-    },
+    }
 });
 
 
-function AppDrawer(props, context) {
+function AppDrawer(props) {
     const {classes, className, mobileDrawerOpen, closeDrawer} = props;
+
+    const handleDrawerHeaderClick = event => {
+        props.history.push(INDEX_ROUTE)
+    };
 
     const drawerHeader = (
         <div className={classes.drawerHeader}>
             <Hidden mdDown>
-                <h3>Trainings Statistiken</h3>
+                <h3
+                    style={{cursor: 'pointer'}}
+                    onClick={handleDrawerHeaderClick}
+                >
+                    Trainings Statistiken
+                </h3>
             </Hidden>
             <Hidden lgUp>
-                <h5>Trainings Statistiken</h5>
+                <h5
+                    style={{cursor: 'pointer'}}
+                    onClick={handleDrawerHeaderClick}
+                >
+                    Trainings Statistiken
+                </h5>
             </Hidden>
             <Hidden lgUp implementation="css">
                 <IconButton onClick={closeDrawer} style={{justifyContent: 'flex-end'}}>
@@ -93,4 +110,7 @@ AppDrawer.propTypes = {
     closeDrawer: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(AppDrawer);
+export default compose(
+    withStyles(styles),
+    withRouter
+)(AppDrawer);

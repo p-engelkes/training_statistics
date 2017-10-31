@@ -7,9 +7,14 @@ import {firebaseConnect, isEmpty, isLoaded} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {
-    ADD_PLAYER_ROUTE, ADD_SEASONS_ROUTE, ADD_TRAINING_ROUTE, LOGIN_ROUTE, PLAYERS_ROUTE,
+    ADD_PLAYER_ROUTE,
+    ADD_SEASONS_ROUTE,
+    ADD_TRAINING_ROUTE,
+    LOGIN_ROUTE,
+    PLAYERS_ROUTE,
     REGISTER_ROUTE
 } from "../../router";
+import ComponentOrNothing from "../utilities/component.or.nothing";
 
 
 class DrawerMenuItemPresentation extends React.Component {
@@ -42,7 +47,7 @@ class DrawerMenuItemPresentation extends React.Component {
 
     render() {
         return <div>
-            <Divider />
+            <Divider/>
             {
                 isEmpty(this.props.auth) && isLoaded(this.props.auth) && [
                     <ListItem button key="0" onClick={() => this.moveTo(LOGIN_ROUTE)}>
@@ -55,7 +60,7 @@ class DrawerMenuItemPresentation extends React.Component {
             }
             <ListItem button onClick={this.handlePlayerMenuClick}>
                 <ListItemText inset primary="Spieler" style={{paddingLeft: 5}}/>
-                {this.state.playersMenuOpen ? <ExpandLess /> : <ExpandMore />}
+                {this.state.playersMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
             <Collapse in={this.state.playersMenuOpen} transitionDuration="auto" unmountOnExit>
                 <ListItem button onClick={() => this.moveTo(PLAYERS_ROUTE)}>
@@ -67,7 +72,7 @@ class DrawerMenuItemPresentation extends React.Component {
             </Collapse>
             <ListItem button onClick={this.handleTrainingMenuClick}>
                 <ListItemText inset primary="Training" style={{paddingLeft: 5}}/>
-                {this.state.trainingMenuOpen ? <ExpandLess /> : <ExpandMore />}
+                {this.state.trainingMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
             <Collapse in={this.state.trainingMenuOpen} transitionDuration="auto" unmountOnExit>
                 <ListItem button onClick={() => this.moveTo(ADD_TRAINING_ROUTE)}>
@@ -76,19 +81,21 @@ class DrawerMenuItemPresentation extends React.Component {
             </Collapse>
             <ListItem button onClick={this.handleSeasonMenuClick}>
                 <ListItemText inset primary="Saison" style={{paddingLeft: 5}}/>
-                {this.state.trainingMenuOpen ? <ExpandLess /> : <ExpandMore />}
+                {this.state.trainingMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
             <Collapse in={this.state.seasonMenuOpen} transitionDuration="auto" unmountOnExit>
                 <ListItem button onClick={() => this.moveTo(ADD_SEASONS_ROUTE)}>
                     <ListItemText inset primary="Hinzufügen" style={{paddingLeft: 15}}/>
                 </ListItem>
             </Collapse>
-            {
-                !isEmpty(this.props.auth) && isLoaded(this.props.auth) &&
+            <ComponentOrNothing
+                test={this.props.auth}
+                component={() =>
                     <ListItem button onClick={this.handleLogout}>
                         <ListItemText inset primary="Logout" style={{paddingLeft: 5}}/>
                     </ListItem>
-            }
+                }
+            />
         </div>
 
     }
