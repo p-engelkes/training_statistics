@@ -7,19 +7,21 @@ import {Home} from "./components/home";
 import {Login} from "./components/routes/login/login.container";
 import {Register} from "./components/routes/register/register.container";
 import {userIsAuthenticated, userIsNotAuthenticated} from "./utils/authentication";
-import {PlayerList} from "./components/routes/players/player.list";
+import {AllPlayers} from "./components/routes/players/all.players";
 import {AddPlayer} from "./components/routes/players/add/add.players.container";
 import {AddTraining} from "./components/routes/training/add/add.training.container";
 import {Grid} from "material-ui";
 import {withStyles} from 'material-ui/styles';
 import {AddSeason} from "./components/routes/seasons/add/add.season.container";
+import {AllTrainings} from "./components/routes/training/all.trainings";
 
 export const INDEX_ROUTE = "/";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 export const PLAYERS_ROUTE = "/players";
 export const ADD_PLAYER_ROUTE = `${PLAYERS_ROUTE}/add`;
-export const ADD_TRAINING_ROUTE = "/trainings/add";
+export const TRAININGS_ROUTE = "/trainings";
+export const ADD_TRAINING_ROUTE = `${TRAININGS_ROUTE}/add`;
 export const ADD_SEASONS_ROUTE = "/seasons/add";
 
 const authenticatedRoutes = [
@@ -31,12 +33,17 @@ const authenticatedRoutes = [
     {
         path: PLAYERS_ROUTE,
         exact: true,
-        component: PlayerList
+        component: AllPlayers
     },
     {
         path: ADD_PLAYER_ROUTE,
         exact: false,
         component: AddPlayer
+    },
+    {
+        path: TRAININGS_ROUTE,
+        exact: true,
+        component: AllTrainings
     },
     {
         path: ADD_TRAINING_ROUTE,

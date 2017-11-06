@@ -3,10 +3,10 @@ import {Field, reduxForm} from "redux-form";
 import {Button} from "material-ui";
 import {validEmail} from '../../../utils/forms'
 import renderTextField from "../../form/material.text.field";
-import FormField from "../../form/form.field";
 import FormButton from "../../form/form.button";
 import {EMAIL, LOGIN_FORM, PASSWORD} from "../../constants/forms/user.form.constants";
 import PropTypes from 'prop-types';
+import {FormField} from "../../form/form.field";
 
 const validate = values => {
     const errors = {};

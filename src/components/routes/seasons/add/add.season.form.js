@@ -1,5 +1,4 @@
 import React from 'react';
-import FormField from "../../../form/form.field";
 import {ADD_SEASON_FORM, ADDITIONAL_SEASON, SEASON} from "../../../constants/forms/season.form.constants";
 import renderTextField from "../../../form/material.text.field";
 import {Field, reduxForm} from "redux-form";
@@ -7,6 +6,7 @@ import FormButton from "../../../form/form.button";
 import {Button} from "material-ui";
 import renderCheckBox from "../../../form/material.checkbox.field";
 import PropTypes from 'prop-types';
+import {FormField} from "../../../form/form.field";
 
 const validate = values => {
     let errors = {};

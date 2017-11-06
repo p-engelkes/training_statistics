@@ -8,7 +8,7 @@ const styles = theme => ({
     }
 });
 
-const FormField = ({children, classes}) => {
+const FormFieldPresentation = ({children, classes}) => {
     return (
         <Grid container justify="center" className={classes.padding}>
             <Grid item xs={12} lg={8}>
@@ -18,4 +18,4 @@ const FormField = ({children, classes}) => {
     )
 };
 
-export default withStyles(styles)(FormField);
+export const FormField = withStyles(styles)(FormFieldPresentation);

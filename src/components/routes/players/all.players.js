@@ -12,14 +12,9 @@ import {compose} from "redux";
 import ComponentOrLoading from "../../utilities/component.or.loading";
 import PlayerGrid from "./player.grid";
 import ComponentOrNothing from "../../utilities/component.or.nothing";
+import {listStyles} from "../../styles";
 
-const styles = theme => ({
-    selected: {
-        background: theme.palette.secondary[300]
-    }
-});
-
-class PlayerListComponent extends Component {
+class AllPlayersComponent extends Component {
     state = {
         selected: null
     };
@@ -97,11 +92,7 @@ class PlayerListComponent extends Component {
                 <ComponentOrNothing
                     test={selected}
                     component={() =>
-                        <EditPlayerForm onSubmit={this.updatePlayer}
-                                        player={selected}
-                                        title=""
-                                        buttonLabel="aktualisieren"
-                        />
+                        <EditPlayerForm onSubmit={this.updatePlayer} />
                     }
                 />
             </Grid>
@@ -109,7 +100,7 @@ class PlayerListComponent extends Component {
     }
 }
 
-export const PlayerList = compose(
+export const AllPlayers = compose(
     firebaseConnect([`/${PLAYER_LOCATION}`]),
     connect(
         ({firebase: {auth, data: {players}}}) => ({
@@ -117,6 +108,6 @@ export const PlayerList = compose(
             players
         })
     ),
-    withStyles(styles),
+    withStyles(listStyles),
     withTitle("Spielerübersicht")
-)(PlayerListComponent);
+)(AllPlayersComponent);

@@ -1,8 +1,8 @@
 import React from 'react';
-import FormField from "../../form/form.field";
 import renderTextField from "../../form/material.text.field";
 import {Field} from "redux-form";
 import {FIRST_NAME, LAST_NAME} from "../../constants/forms/player.form.constants";
+import {FormField} from "../../form/form.field";
 
 export const PlayerFormFields = () => <div>
     <FormField>
