@@ -13,123 +13,62 @@ import {withTitle} from "../../utilities/withTitleHOC";
 import TrainingGrid from "./training.grid";
 import {listStyles} from "../../styles";
 import {LoadingSpinner} from "../../utilities/loading.spinner";
+import {TrainingsBySeason} from "./trainings.by.season";
 
 class AllTrainingsComponent extends Component {
     state = {
-        selected: null,
-        trainings: null
+        selectedSeason: null
     };
 
-    updateTraining = training => {
-        if (this.props.auth) {
-            this.props.firebase.updateWithMeta(`/${TRAINING_LOCATION}/${this.state.selected.key}`, training)
-        }
+    handleChange = event => {
+        this.setState({selectedSeason: event.target.value})
     };
-
-    deleteTraining = key => {
-        if (this.props.auth) {
-            this.props.firebase.remove(`/${TRAINING_LOCATION}/${key}`).catch(err => {
-                console.log(err)
-            });
-            if (this.state.selected) {
-               this.setState({selected: null})
-            }
-        }
-    };
-
-    handleListItemClicked = selected => {
-        this.setState({selected});
-        this.props.dispatch(change(EDIT_TRAINING_FORM, DATE, selected.training.date));
-        this.props.dispatch(change(EDIT_TRAINING_FORM, PLAYERS, selected.training.players));
-    };
-
-    getSelectedClass = key => {
-        const {selected} = this.state;
-        const {classes} = this.props;
-
-        if (selected) {
-            if (key === selected.key) {
-                return classes.selected
-            }
-        }
-
-        return '';
-    };
-
-    componentWillReceiveProps(nextProps) {
-        const {seasons, trainings} = nextProps;
-        if (!this.state.trainings && isLoaded(seasons) && isLoaded(trainings) && !isEmpty(seasons) && !isEmpty(trainings)) {
-            const seasonKey = Object.keys(seasons)[0];
-            const trainingsForSeason = Object.keys(trainings)
-                .filter(key => trainings[key].season === seasonKey)
-                .map(key => {
-                    return trainings[key]
-                });
-            this.setState({trainings: trainingsForSeason});
-        }
-    }
 
     render() {
-        const {seasons, trainings} = this.props;
-        const {selected} = this.state;
+        const {seasons} = this.props;
+        const {selectedSeason} = this.state;
 
-        if (isLoaded(seasons) && isLoaded(trainings) && !isEmpty(seasons) && !isEmpty(trainings)) {
+        if (isLoaded(seasons) && !isEmpty(seasons)) {
             return (
                 <Grid container justify="center">
-                    <Select key="1"
-                            input={<Input id="season"/>}
-                            value={""}
-                    >
-                        <MenuItem value="">
-                            <em>Keine</em>
-                        </MenuItem>
-                        {
-                            Object.keys(seasons).map((key) => (
-                                <MenuItem value={key} key={key}>
-                                    {seasons[key].name}
+                    <Grid container justify="center">
+                        <Grid item xs={8} lg={4}>
+                            <Select key="1"
+                                    input={<Input id="season" style={{width: '100%'}}/>}
+                                    value={""}
+                                    onChange={(event) => this.handleChange(event)}
+                            >
+                                <MenuItem value="">
+                                    <em>Keine</em>
                                 </MenuItem>
-                            ))
-                        }
-                    </Select>
-                    <ComponentOrNothing
-                        test={this.state.trainings}
-                        component={() =>
-                            <ComponentOrLoading
-                                test={trainings}
-                                component={() =>
-                                    <TrainingGrid
-                                        trainings={trainings}
-                                        handleItemClick={this.handleListItemClicked}
-                                        handleDelete={this.deleteTraining}
-                                        getSelectedClass={this.getSelectedClass}
-                                    />
+                                {
+                                    Object.keys(seasons).map((key) => (
+                                        <MenuItem value={key} key={key}>
+                                            {seasons[key].name}
+                                        </MenuItem>
+                                    ))
                                 }
-                            />
-                        }
-                    />
-                    <ComponentOrNothing
-                        test={selected}
-                        component={() =>
-                            <EditTrainingForm
-                                onSubmit={this.updateTraining}
-                                seasons={seasons}
-                            />
-                        }
-                    />
+                            </Select>
+                        </Grid>
+                    </Grid>
+                    <Grid container justify="center">
+                        <Grid item xs={12} lg={6}>
+                            <TrainingsBySeason season={selectedSeason} style={{width: '100%'}}/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             )
         } else {
-            return <LoadingSpinner />
+            return <LoadingSpinner/>
         }
     }
 }
 
 export const AllTrainings = compose(
-    firebaseConnect([`/${TRAINING_LOCATION}`, `/${SEASON_LOCATION}`]),
+    firebaseConnect([`/${SEASON_LOCATION}`]),
     connect(
-        ({firebase: {auth, data: {trainings, seasons}}}) => ({
+        ({firebase: {auth, data: {seasons}}}) => ({
             auth,
-            trainings,
             seasons
         })
     ),
