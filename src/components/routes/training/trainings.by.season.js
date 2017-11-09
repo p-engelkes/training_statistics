@@ -1,17 +1,15 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Grid, withStyles} from "material-ui";
-import ComponentOrNothing from "../../utilities/component.or.nothing";
+import {withStyles} from "material-ui";
 import {compose} from "redux";
-import {firebaseConnect} from "react-redux-firebase";
+import {firebaseConnect, isLoaded, isEmpty} from "react-redux-firebase";
 import {TRAINING_LOCATION} from "../../constants/api.constants";
 import {connect} from "react-redux";
-import {withTitle} from "../../utilities/withTitleHOC";
 import {listStyles} from "../../styles";
-import ComponentOrLoading from "../../utilities/component.or.loading";
 import TrainingGrid from "./training.grid";
 import {change} from 'redux-form';
 import {DATE, EDIT_TRAINING_FORM, PLAYERS} from "../../constants/forms/training.form.constants";
+import {LoadingSpinner} from "../../utilities/loading.spinner";
 
 class TrainingsBySeasonComponent extends Component {
     state = {
@@ -55,19 +53,23 @@ class TrainingsBySeasonComponent extends Component {
     render() {
         const {trainingsBySeason} = this.props;
 
-        return (
-                <ComponentOrLoading
-                    test={trainingsBySeason}
-                    component={() =>
-                        <TrainingGrid
-                            trainings={trainingsBySeason}
-                            handleItemClick={this.handleListItemClicked}
-                            handleDelete={this.deleteTraining}
-                            getSelectedClass={this.getSelectedClass}
-                        />
-                    }
-                />
-        )
+        if (trainingsBySeason) {
+            if (isLoaded(trainingsBySeason) && !isEmpty(trainingsBySeason)) {
+                return (
+                    <TrainingGrid
+                        trainings={trainingsBySeason}
+                        handleUpdate={this.updateTraining}
+                        handleItemClick={this.handleListItemClicked}
+                        handleDelete={this.deleteTraining}
+                        getSelectedClass={this.getSelectedClass}
+                    />
+                )
+            } else {
+                return <LoadingSpinner />
+            }
+        } else {
+            return null
+        }
     }
 }
 

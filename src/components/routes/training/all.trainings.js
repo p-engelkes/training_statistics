@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
-import {SEASON_LOCATION, TRAINING_LOCATION} from "../../constants/api.constants";
-import {DATE, EDIT_TRAINING_FORM, PLAYERS} from "../../constants/forms/training.form.constants";
-import {change} from 'redux-form';
+import {SEASON_LOCATION} from "../../constants/api.constants";
 import {Grid, Input, MenuItem, Select, withStyles} from "material-ui";
-import ComponentOrLoading from "../../utilities/component.or.loading";
-import ComponentOrNothing from "../../utilities/component.or.nothing";
-import {EditTrainingForm} from "./edit/edit.training.form";
 import {compose} from "redux";
 import {firebaseConnect, isEmpty, isLoaded} from "react-redux-firebase";
 import {connect} from "react-redux";
 import {withTitle} from "../../utilities/withTitleHOC";
-import TrainingGrid from "./training.grid";
 import {listStyles} from "../../styles";
 import {LoadingSpinner} from "../../utilities/loading.spinner";
 import {TrainingsBySeason} from "./trainings.by.season";
