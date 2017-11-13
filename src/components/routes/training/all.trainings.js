@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SEASON_LOCATION} from "../../constants/api.constants";
+import {PLAYER_LOCATION, SEASON_LOCATION} from "../../constants/api.constants";
 import {Grid, Input, MenuItem, Select, withStyles} from "material-ui";
 import {compose} from "redux";
 import {firebaseConnect, isEmpty, isLoaded} from "react-redux-firebase";
@@ -19,7 +19,7 @@ class AllTrainingsComponent extends Component {
     };
 
     render() {
-        const {seasons} = this.props;
+        const {seasons, players} = this.props;
         const {selectedSeason} = this.state;
 
         if (isLoaded(seasons) && !isEmpty(seasons)) {
@@ -47,7 +47,12 @@ class AllTrainingsComponent extends Component {
                     </Grid>
                     <Grid container justify="center">
                         <Grid item xs={12} lg={6}>
-                            <TrainingsBySeason season={selectedSeason} style={{width: '100%'}}/>
+                            <TrainingsBySeason
+                                seasons={seasons}
+                                players={players}
+                                selectedSeasonKey={selectedSeason}
+                                style={{width: '100%'}}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -59,11 +64,12 @@ class AllTrainingsComponent extends Component {
 }
 
 export const AllTrainings = compose(
-    firebaseConnect([`/${SEASON_LOCATION}`]),
+    firebaseConnect([`/${SEASON_LOCATION}`, `/${PLAYER_LOCATION}`]),
     connect(
-        ({firebase: {auth, data: {seasons}}}) => ({
+        ({firebase: {auth, data: {seasons, players}}}) => ({
             auth,
-            seasons
+            seasons,
+            players
         })
     ),
     withStyles(listStyles),

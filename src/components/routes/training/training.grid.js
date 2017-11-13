@@ -15,7 +15,7 @@ export default class TrainingGrid extends Component {
     };
 
     render() {
-        const {trainings} = this.props;
+        const {trainings, seasons, players} = this.props;
 
         return (
             <List>
@@ -45,7 +45,11 @@ export default class TrainingGrid extends Component {
                 }
                 {
                     this.state.selected && (
-                        <EditTrainingForm onSubmit={this.props.handleUpdate} />
+                        <EditTrainingForm
+                            onSubmit={this.props.handleUpdate}
+                            seasons={seasons}
+                            players={players}
+                        />
                     )
                 }
             </List>
@@ -55,6 +59,8 @@ export default class TrainingGrid extends Component {
 
 TrainingGrid.propTypes = {
     trainings: PropTypes.object.isRequired,
+    seasons: PropTypes.object,
+    players: PropTypes.object,
     handleUpdate: PropTypes.func.isRequired,
     handleItemClick: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,

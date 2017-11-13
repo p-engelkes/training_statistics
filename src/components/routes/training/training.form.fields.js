@@ -6,9 +6,9 @@ import {SEASON} from "../../constants/forms/season.form.constants";
 import {DATE, PLAYERS} from "../../constants/forms/training.form.constants";
 import {FormField} from "../../form/form.field";
 import PropTypes from 'prop-types';
+import {SelectPlayerField} from "../../form/select.player.field";
 
-var SelectPlayerField;
-export const TrainingFormFields = ({seasons}) =>
+export const TrainingFormFields = ({seasons, players}) =>
     <div>
         <FormField>
             <Field
@@ -31,12 +31,13 @@ export const TrainingFormFields = ({seasons}) =>
             <Field
                 name={PLAYERS}
                 component={SelectPlayerField}
-                players={this.props.players}
+                players={players}
                 style={{width: '100%'}}
             />
         </FormField>
     </div>;
 
 TrainingFormFields.propTypes = {
-    seasons: PropTypes.object
-}
+    seasons: PropTypes.object,
+    players: PropTypes.object
+};

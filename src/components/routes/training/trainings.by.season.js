@@ -10,6 +10,7 @@ import TrainingGrid from "./training.grid";
 import {change} from 'redux-form';
 import {DATE, EDIT_TRAINING_FORM, PLAYERS} from "../../constants/forms/training.form.constants";
 import {LoadingSpinner} from "../../utilities/loading.spinner";
+import {SEASON} from "../../constants/forms/season.form.constants";
 
 class TrainingsBySeasonComponent extends Component {
     state = {
@@ -33,6 +34,7 @@ class TrainingsBySeasonComponent extends Component {
 
     handleListItemClicked = selected => {
         this.setState({selected});
+        this.props.dispatch(change(EDIT_TRAINING_FORM, SEASON, selected.training.season));
         this.props.dispatch(change(EDIT_TRAINING_FORM, DATE, selected.training.date));
         this.props.dispatch(change(EDIT_TRAINING_FORM, PLAYERS, selected.training.players));
     };
@@ -51,13 +53,15 @@ class TrainingsBySeasonComponent extends Component {
     };
 
     render() {
-        const {trainingsBySeason} = this.props;
+        const {trainingsBySeason, seasons, players} = this.props;
 
         if (trainingsBySeason) {
             if (isLoaded(trainingsBySeason) && !isEmpty(trainingsBySeason)) {
                 return (
                     <TrainingGrid
                         trainings={trainingsBySeason}
+                        seasons={seasons}
+                        players={players}
                         handleUpdate={this.updateTraining}
                         handleItemClick={this.handleListItemClicked}
                         handleDelete={this.deleteTraining}
@@ -79,7 +83,7 @@ export const TrainingsBySeason = compose(
             {
                 path: `/${TRAINING_LOCATION}`,
                 storeAs: "trainingsBySeason",
-                queryParams: ["orderByChild=season", `equalTo=${props.season}`]
+                queryParams: ["orderByChild=season", `equalTo=${props.selectedSeasonKey}`]
             }
         ]
     }),
@@ -93,5 +97,7 @@ export const TrainingsBySeason = compose(
 )(TrainingsBySeasonComponent);
 
 TrainingsBySeason.propTypes = {
-    season: PropTypes.string
+    selectedSeasonKey: PropTypes.string,
+    seasons: PropTypes.object,
+    players: PropTypes.object
 };

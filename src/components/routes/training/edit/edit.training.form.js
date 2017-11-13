@@ -9,11 +9,14 @@ import PropTypes from 'prop-types';
 
 class EditTrainingFormUI extends Component {
     render() {
-        const {invalid, submitting} = this.props;
+        const {invalid, submitting, seasons, players} = this.props;
 
         return (
             <form onSubmit={this.props.handleSubmit}>
-                <TrainingFormFields />
+                <TrainingFormFields
+                    seasons={seasons}
+                    players={players}
+                />
                 <FormButton>
                     <Button
                         type="submit"
@@ -36,5 +39,6 @@ export const EditTrainingForm = reduxForm({
 
 EditTrainingForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    seasons: PropTypes.object
+    seasons: PropTypes.object,
+    players: PropTypes.object
 };

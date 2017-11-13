@@ -25,6 +25,10 @@ class SelectPlayerFieldPresentation extends React.Component {
         value: this.props.value
     };
 
+    componentWillMount() {
+        this.setState({value: this.props.input.value})
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({value: nextProps.input.value})
     };
