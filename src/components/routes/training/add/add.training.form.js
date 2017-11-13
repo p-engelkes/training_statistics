@@ -12,7 +12,10 @@ class AddTrainingFormPresentation extends React.Component {
         const {invalid, submitting} = this.props;
 
         return <form onSubmit={this.props.handleSubmit}>
-            <TrainingFormFields seasons={this.props.seasons} />
+            <TrainingFormFields
+                seasons={this.props.seasons}
+                players={this.props.players}
+            />
             <FormButton>
                 <Button
                     type="submit"
@@ -34,5 +37,6 @@ export const AddTrainingForm = reduxForm({
 
 AddTrainingForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    seasons: PropTypes.object
+    seasons: PropTypes.object,
+    players: PropTypes.object
 };

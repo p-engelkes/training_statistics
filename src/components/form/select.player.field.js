@@ -50,7 +50,8 @@ class SelectPlayerFieldPresentation extends React.Component {
             });
         } else {
             this.setState(previousState => {
-                previousState.value.splice(indexOfKey, 1)
+                previousState.value.splice(indexOfKey, 1);
+                return {value: previousState.value}
             }, () => {
                 this.props.input.onChange(this.state.value)
             })

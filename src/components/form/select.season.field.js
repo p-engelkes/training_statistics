@@ -20,6 +20,10 @@ export default class SelectSeasonField extends React.Component {
         })
     };
 
+    componentWillMount() {
+        this.setState({value: this.props.input.value})
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({value: nextProps.input.value})
     }
