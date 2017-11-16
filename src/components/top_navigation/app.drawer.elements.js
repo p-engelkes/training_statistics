@@ -12,7 +12,7 @@ import {
     ADD_TRAINING_ROUTE,
     LOGIN_ROUTE,
     PLAYERS_ROUTE,
-    REGISTER_ROUTE
+    REGISTER_ROUTE, TRAININGS_ROUTE
 } from "../../router";
 import ComponentOrNothing from "../utilities/component.or.nothing";
 
@@ -62,6 +62,7 @@ class DrawerMenuItemPresentation extends React.Component {
                 <ListItemText inset primary="Spieler" style={{paddingLeft: 5}}/>
                 {this.state.playersMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
+            {/*Players Menu*/}
             <Collapse in={this.state.playersMenuOpen} transitionDuration="auto" unmountOnExit>
                 <ListItem button onClick={() => this.moveTo(PLAYERS_ROUTE)}>
                     <ListItemText inset primary="Liste" style={{paddingLeft: 15}}/>
@@ -70,11 +71,16 @@ class DrawerMenuItemPresentation extends React.Component {
                     <ListItemText inset primary="Hinzufügen" style={{paddingLeft: 15}}/>
                 </ListItem>
             </Collapse>
+
+            {/*Trainings Menu*/}
             <ListItem button onClick={this.handleTrainingMenuClick}>
                 <ListItemText inset primary="Training" style={{paddingLeft: 5}}/>
                 {this.state.trainingMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
             <Collapse in={this.state.trainingMenuOpen} transitionDuration="auto" unmountOnExit>
+                <ListItem button onClick={() => this.moveTo(TRAININGS_ROUTE)}>
+                    <ListItemText inset primary="Liste" style={{paddingLeft: 15}}/>
+                </ListItem>
                 <ListItem button onClick={() => this.moveTo(ADD_TRAINING_ROUTE)}>
                     <ListItemText inset primary="Hinzufügen" style={{paddingLeft: 15}}/>
                 </ListItem>
@@ -83,6 +89,8 @@ class DrawerMenuItemPresentation extends React.Component {
                 <ListItemText inset primary="Saison" style={{paddingLeft: 5}}/>
                 {this.state.trainingMenuOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>
+
+            {/*Seasons Menu*/}
             <Collapse in={this.state.seasonMenuOpen} transitionDuration="auto" unmountOnExit>
                 <ListItem button onClick={() => this.moveTo(ADD_SEASONS_ROUTE)}>
                     <ListItemText inset primary="Hinzufügen" style={{paddingLeft: 15}}/>
